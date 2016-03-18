@@ -1,33 +1,20 @@
-//var cron = require("node-schedule");
-
-var moment = require('moment');
-
 "use strict";
 class Garage {
 	constructor(parkingSpaces) {
 		this.parkingSpaces = parkingSpaces;
-		var timeSlots = 365*24;
-		this.reservedTimes = new Array(timeSlots);
+		this.timeSlots = 365*24;
+		this.reservedTimes = new Array(this.timeSlots);
 
-		for(var i = 0; i < timeSlots; i++) {
+		for(var i = 0; i < this.timeSlots; i++) {
 			this.reservedTimes[i] = 0;
 		}
-/*
-		//Keeps array at same size, remove crap and adding crap hourly
-		//Not sure where this goes, maybe outside the constructor?
-		//Most likely outside the constructor.. but we'll see when the code derps
-		var rule = new cron.RecurrenceRule();
-		rule.minute = 0;
-		cron.scheduleJob(rule, function() {
-			reservedTimes.shift();
-			reservedTimes.push(0);
-		});
-*/
+
+    this.currentTime = new Date();
 	}
 
-	setReservation(startDateObj, endDateObj, curDateObj) {
-		var startSection = this.convertToSection(startDateObj, curDateObj);
-		var endSection = this.convertToSection(endDateObj, curDateObj);
+	setReservation(startDateObj, endDateObj) {
+		var startSection = this.convertToSection(startDateObj);
+		var endSection = this.convertToSection(endDateObj);
 		if(startSection < 0) {
 			console.log("Date has already passed");
 		} else if(endSection >= this.timeSlots) {
@@ -39,39 +26,32 @@ class Garage {
 		}
 	}
 
-	getAvailableSpaces(dateObj, curDateObj) {
-		var section = this.convertToSection(dateObj, curDateObj);
-		try {
-			return this.parkingSpaces - this.reservedTimes[section];
-		} catch(err) {
-			return 0;
-		}
+	getAvailableSpaces(dateObj) {
+		var section = this.convertToSection(dateObj);
+    if(section < 0 || section > this.timeslots) {
+      return 0;
+    }
+		return this.parkingSpaces - this.reservedTimes[section];
 	}
 
 	getOccupiedSpaces(dateObj, curDateObj) {
-		var section = this.convertToSection(dateObj, curDateObj);
-		try {
-			return this.reservedTimes[section];
-		} catch(err) {
-			return -1;
-		}
+		var section = this.convertToSection(dateObj);
+    if(section < 0 || section > this.timeslots) {
+      return -1;
+    }
+		return this.reservedTimes[section];
 	}
-
-	incrementHourTester() {
+  
+  //Will replace this with a cron job or something later down the line
+	incrementHour() {
 		this.reservedTimes.shift();
 		this.reservedTimes.push(0);
+    this.currentTime = new Date(this.currentTime.getTime() + 60*60000);
 	}
 
-	convertToSection(dateObj, currentTime) {
-		if(currentTime.getFullYear() == dateObj.getFullYear()) {
-			return dateToHours(dateObj) - dateToHours(currentTime);
-		}
-
-		return this.timeSlots - dateToHours(currentTime) + dateToHours(dateObj);
-	}
-
-	dateToHours(m) {
-		return m.hour() + (24 * (7 * m.week()) * (m.day() + 1));
+	convertToSection(dateObj) {
+    var diffMili = dateObj - this.currentTime;
+    return (diffMili / (1000 * 60 * 60)) % 24;
 	}
 };
 
