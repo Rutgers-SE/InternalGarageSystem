@@ -6,7 +6,6 @@ class Garage {
 		this.parkingSpaces = parkingSpaces;
 		this.timeSlots = 365*24;
 		this.reservedTimes = new Array(this.timeSlots);
-    console.log(this.currentTime);
     //Initialize the number of reservations for each time slot to zero
 		for(var i = 0; i < this.timeSlots; i++) {
 			this.reservedTimes[i] = 0;
@@ -36,7 +35,7 @@ class Garage {
     return true;
 	}
 
-	getOccupiedSpaces(dateObj) {
+	getReservedSpaces(dateObj) {
 		var section = this.convertToSection(dateObj);
     //Check that date given falls within the time slots
 		if(section < 0 || section >= this.timeslots) {
@@ -46,7 +45,7 @@ class Garage {
 		return this.reservedTimes[section];
 	}
 
-	getAvailableSpaces(dateObj) {
+	getUnreservedSpaces(dateObj) {
 		return this.parkingSpaces - this.getOccupiedSpaces(dateObj);
 	}
 
