@@ -1,6 +1,7 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 
@@ -14,14 +15,33 @@ MongoClient.connect(url, function(err, db) {
 });
 server.listen(8080);
 
+app.use(bodyParser.urlendcoded({ extended: false })); // form handling
+app.use(bodyParser.json()); // handling json
+
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
 // returns a json
-app.get('/api/:garage_id/q/space', function (req, res) {
+app.get('/api/:garage_id/b/full', function (req, res) {
   // look at the current instance of
-  res.send("something");
+  res.json(false); // this should change.
+});
+
+
+// This string is how we interface from the reservation system to the garage system.
+// notice how it starts with api
+// then :garage_id
+// then o. o mean object
+//      b means boolean
+//      n means number
+// -----vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv-------
+app.get('/api/:garage_id/o/statistics', function (req, res) {
+  var garageId = req.params.garage_id;
+  res.json({
+    "thisshouldhavesomeinformation": "righthere",
+    "garage_id": garageId
+  });
 });
 
 io.on('connection', function (socket) {
