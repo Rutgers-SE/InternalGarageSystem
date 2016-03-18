@@ -1,10 +1,14 @@
 // Device
+const EventEmitter = require('events');
+const util = require('util');
 
 function Device() {
+  EventEmitter.call(this);
   this.deviceType = undefined;         // Used to determine the specific device type
   this.signalType = "stream";          // default set to stream
   this.name = "undersigned_device";    // Used to designate the specific device
 }
+util.inherits(Device, EventEmitter);
 
 // Static functions
 Device.on = function () {
@@ -48,7 +52,6 @@ Device.prototype = {
 var camera = new Device({
     deviceType : "camera",
     signalType : "stream"
-
 });
 
 var sensor = new Device({
