@@ -55,13 +55,15 @@ class Garage {
     //Shift the array down one, then push a new slot to the end.
 		this.reservedTimes.shift();
 		this.reservedTimes.push(0);
-    //Increment the current time by an hour
-		this.currentTime = new Date(this.currentTime.getTime() + 60*60000);
+    //Increment the current time by an hour.  
+    //3.6E6 is miliseconds in hour.
+		this.currentTime = new Date(this.currentTime.getTime() + 3.6E6);
 	}
 
   //Converts the given date to the corresponding timeslot array index
 	convertToSection(dateObj) {
-		return Math.floor((dateObj - this.currentTime) / (1000 * 60 * 60));
+    //3.6E6 is miliseconds in hour.
+		return Math.floor((dateObj - this.currentTime) / 3.6E6);
 	}
 };
 
