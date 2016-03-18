@@ -1,3 +1,4 @@
+var garage = require("./spaceManager.js");
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
@@ -6,6 +7,8 @@ var MongoClient = require('mongodb').MongoClient,
   assert = require('assert');
 
 var url = 'mongodb://localhost:27017/garage';
+
+var galaxyGarageNumeroUno = new garage(200);
 
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
