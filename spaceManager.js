@@ -13,8 +13,7 @@ class SpaceManager {
 		}
 	}
 
-  //Checks for any descrepencies, then 1up's the reservation time slots
-	setReservation(startDateObj, endDateObj) {
+  checkReservation(startDateObj, endDateObj) {
 		var startSection = this.convertToSection(startDateObj);
 		var endSection = this.convertToSection(endDateObj);
     //Check that the date reservation range is valid
@@ -28,6 +27,16 @@ class SpaceManager {
         console.log("Not enough space.");
         return false;
       }
+    }
+    return true;
+  }
+
+  //Checks for any descrepencies, then 1up's the reservation time slots
+	setReservation(startDateObj, endDateObj) {
+		var startSection = this.convertToSection(startDateObj);
+		var endSection = this.convertToSection(endDateObj);
+    if(!this.checkReservation(startDateObj, endDateObj)) {
+      return false;
     }
     //Increment reservation number for each time slot
     for(var i = startSection; i < endSection; i++) {
@@ -47,7 +56,7 @@ class SpaceManager {
 	}
 
 	getUnreservedSpaces(dateObj) {
-		return this.reservationSpaces - this.getOccupiedSpaces(dateObj);
+		return this.reservationSpaces - this.getReservedSpaces(dateObj);
 	}
 
 	//Will replace this with a cron job or something later down the line
