@@ -1,9 +1,10 @@
 "use strict";
 
-class Garage {
-	constructor(parkingSpaces) {
+class SpaceManager {
+	constructor(reservationSpaces, walkInSpaces) {
 		this.currentTime = new Date();
-		this.parkingSpaces = parkingSpaces;
+		this.reservationSpaces = reservationSpaces;
+    this.walkInSpaces = walkInSpaces;
 		this.timeSlots = 365*24;
 		this.reservedTimes = new Array(this.timeSlots);
     //Initialize the number of reservations for each time slot to zero
@@ -23,7 +24,7 @@ class Garage {
 		}
     //Check each timeslot to make sure there is enough space
     for(var i = startSection; i < endSection; i++) {
-      if(this.reservedTimes[i] >= this.parkingSpaces) {
+      if(this.reservedTimes[i] >= this.reservationSpaces) {
         console.log("Not enough space.");
         return false;
       }
@@ -46,7 +47,7 @@ class Garage {
 	}
 
 	getUnreservedSpaces(dateObj) {
-		return this.parkingSpaces - this.getOccupiedSpaces(dateObj);
+		return this.reservationSpaces - this.getOccupiedSpaces(dateObj);
 	}
 
 	//Will replace this with a cron job or something later down the line
@@ -66,4 +67,4 @@ class Garage {
 	}
 };
 
-module.exports = Garage;
+module.exports = SpaceManager;
