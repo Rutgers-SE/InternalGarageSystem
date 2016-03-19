@@ -13,6 +13,10 @@ class SpaceManager {
 		}
 	}
 
+  getReservedTimes() {
+    return this.reservedTimes;
+  }
+
   checkReservation(startDateObj, endDateObj) {
 		var startSection = this.convertToSection(startDateObj);
 		var endSection = this.convertToSection(endDateObj);
@@ -61,17 +65,17 @@ class SpaceManager {
 
 	//Will replace this with a cron job or something later down the line
 	incrementHour() {
-    //Shift the array down one, then push a new slot to the end.
+    //Shift the array down one, then push a new slot to the end
 		this.reservedTimes.shift();
 		this.reservedTimes.push(0);
-    //Increment the current time by an hour.  
-    //3.6E6 is miliseconds in hour.
+    //Increment the current time by an hour
+    //3.6E6 is miliseconds in hour
 		this.currentTime = new Date(this.currentTime.getTime() + 3.6E6);
 	}
 
   //Converts the given date to the corresponding timeslot array index
 	convertToSection(dateObj) {
-    //3.6E6 is miliseconds in hour.
+    //3.6E6 is miliseconds in hour
 		return Math.floor((dateObj - this.currentTime) / 3.6E6);
 	}
 };
