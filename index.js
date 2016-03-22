@@ -51,17 +51,22 @@ app.get('/api/:garage_id/o/statistics', function (req, res) {
   });
 });
 
+var parseStartFinish = (req) => {
+  return {
+    start: new Date(req.params.start),
+    start: new Date(req.params.finish)
+  };
+};
+
 //Check to see if reservation is available
-app.get('/api/:garage_id/b/checkreservation/:y1/:m1/:d1/:h1/:y2/:m2/:d2/:h2', function(req, res) {
-  var date1 = new Date(req.params.y1, req.params.m1, req.params.d1, req.params.h1, 0, 0, 0);
-  var date2 = new Date(req.params.y2, req.params.m2, req.params.d2, req.params.h2, 0, 0, 0);
-  res.json(spaceManOne.checkReservation(date1, date2));
+app.get('/api/:garage_id/b/checkreservation', function(req, res) {
+  var {start, finish} = parseStartFinish(req);
+  res.json(spaceManOne.checkReservation(start, finish));
 });
 
 //Attempt to make reservation
 app.get('/api/:garage_id/b/setreservation/:y1/:m1/:d1/:h1/:y2/:m2/:d2/:h2', function(req, res) {
-  var date1 = new Date(req.params.y1, req.params.m1, req.params.d1, req.params.h1, 0, 0, 0);
-  var date2 = new Date(req.params.y2, req.params.m2, req.params.d2, req.params.h2, 0, 0, 0);
+  var {start, finish} = parseStartFinish(req);
   res.json(spaceManOne.setReservation(date1, date2));
 });
 
