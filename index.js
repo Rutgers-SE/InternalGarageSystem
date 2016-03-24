@@ -60,34 +60,34 @@ var parseStartFinish = (req) => {
 
 //Check to see if reservation is available
 app.get('/api/:garage_id/b/checkreservation', function(req, res) {
-  var {start, finish} = parseStartFinish(req);
-  res.json(spaceManOne.checkReservation(start, finish));
+  var r = parseStartFinish(req);
+  res.json(spaceManOne.checkReservation(r.start, r.finish));
 });
 
 //Attempt to make reservation
-app.get('/api/:garage_id/b/setreservation/:y1/:m1/:d1/:h1/:y2/:m2/:d2/:h2', function(req, res) {
-  var {start, finish} = parseStartFinish(req);
-  res.json(spaceManOne.setReservation(date1, date2));
+app.get('/api/:garage_id/b/setreservation', function(req, res) {
+  var r = parseStartFinish(req);
+  res.json(spaceManOne.setReservation(r.date1, r.date2));
 });
 
 //Get reserved spaces at specified timeslot
-app.get('/api/:garage_id/n/getreservedspaces/:y/:m/:d/:h', function(req, res){
-  var date = new Date(req.params.y, req.params.m, req.params.d, req.params.h, 0, 0, 0);
-  res.json(spaceManOne.getReservedSpaces(date));
+app.get('/api/:garage_id/n/getreservedspaces', function(req, res){
+  res.json(spaceManOne.getReservedSpaces(new Date(req.params.date)));
 });
 
 //Get unreserved spaces at specified timeslot
 app.get('/api/:garage_id/n/getunreservedspaces/:y/:m/:d/:h', function(req, res){
-  var date = new Date(req.params.y, req.params.m, req.params.d, req.params.h, 0, 0, 0);
-  res.json(spaceManOne.getUnreservedSpaces(date));
+  res.json(spaceManOne.getUnreservedSpaces(new Date(req.params.date)));
 });
 
 //Get the currentTimeSlots array
 app.get('/api/:garage_id/o/getreservedtimes', function(req, res) {
+  // TODO: implement
   res.json(spaceManOne.getReservedTimes());
 });
 
 //Socket.io
+// This is where the devices will be triggered in "REAL TIME"
 io.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', function (data) {
