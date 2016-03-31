@@ -89,7 +89,7 @@ camera.on('capture', function (stream) {
 });
 
 
-// Device Typjjes
+// Device Types
 var depthSensor = new Device({
 
     name: "pr-sensor",
@@ -120,7 +120,7 @@ var depthSensor = new Device({
 });
 
 var gate = new Device({
-    name: "ent-gate",
+    name: "entance-gate",
     type: "switch", // type of sensor
     init: function (q) {
       turnOnGate(); // fake code that turns on physicall hardware
@@ -192,32 +192,6 @@ var terminal = new Device ({
     }
 }
 
-function Obj() {
-  return this;
-}
-
-Obj.prototype.on = function () {
-  return this;
-};
-
-// fake
-function controller() {
-  on( eventName, optionalMinObj, actionFunction)
-  devices.on('entrance-sequence')
-         .where((obj) => { obj.name == "pr-sensor"})
-         .do((obj) => {
-            devices.name("qr-scanner").init((err) => {
-              if (err) throw "this is some error";
-            });
-
-
-            devices.on('open-gate')
-                   .where((obj) => {obj.name == "qr-scanner"})
-                   .do((obj) => {
-
-                   });
-          });
-}
 
 // device controller that tells the garage how to sequetially operate devices
 function controller() {
