@@ -207,8 +207,12 @@ function controller() {
     .where((obj) => { obj.name == "entrance-sensor"})
     .do((obj) => {
       // the terminal is activated to communicate with the customer
+      // this also includes ticket printing
       device.name("entrance-terminal").init((error) => {
         if (error) throw "error message 1"
+      });
+      device.name("ticket-printer").init((error) => {
+        if (error) throw "error message 11"
       });
     });
     // when ticket is taken by customer, the gate opens up
@@ -241,6 +245,9 @@ function controller() {
 
 
 /*
+
+FOR REFFERENCE ONLY:
+
 sequence to write in controller:
 
 check for error at every step
@@ -307,7 +314,7 @@ device
     }
   terminal
     entrance-terminal{
-
+      displayParkingInfo()
     }
     exit-terminal{
       requestTicket()
