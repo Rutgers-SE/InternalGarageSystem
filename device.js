@@ -41,7 +41,7 @@ var qrScanner = new Device({
       });
     },
     off: function () {
-      if (closeGate()) {
+      if (!Scanning()) {
         return this.emit("switch", {
           name: this.name,
           status: "closed"
@@ -76,8 +76,14 @@ var camera = new Device({
         )};
         }
     },
+    readLicense(){
+      licenseNumber = capture(license);
+    }
+    recordLicense(){
+      logToTheMongoDb(licenseNumber);
+    }
     terminate: function(){
-        turnOffCamera();
+      turnOffCamera();
     },
     reboot: function () {
       this.terminate();
@@ -89,7 +95,6 @@ camera.on('capture', function (stream) {
 });
 
 
-// Device Types
 var depthSensor = new Device({
 
     name: "pr-sensor",
@@ -224,6 +229,7 @@ function controller() {
           if (error) throw "error message 3"
         });
       });
+      // spot sensor should stay active until it becomes vacant
     device.on('activate-spot-sensor')
       .where((obj) => {obj.name == "garage-spot-sensor"})
       .do((obj) => {
@@ -232,3 +238,93 @@ function controller() {
         });
       });
 }
+
+
+/*
+sequence to write in controller:
+
+check for error at every step
+
+arrival-sequence    :
+
+entrance-sensor
+terminal screen on
+user input (reservation info)
+	calculate closest spot in garage
+		add spot to ticket
+    if reservation
+		display reserved time and calculated spot
+	else if walkin
+		take ticket with qr code
+	else
+		return error message
+gate open
+car clears gate
+	gate close
+spot sensors on
+if spot sensor sees car parked
+spot sensors off
+
+
+
+departure-sequence :
+
+exit-sensor
+terminal ask for ticket
+user insert ticket
+terminal send charge request
+approval pass
+exit gate open
+exit gate close
+
+
+
+devices and methods/attr
+
+device
+
+  gate
+    entrance-gate{
+      open()
+      close()
+    }
+
+  sensor
+    entrance-sensor{
+      inRange() : boolean
+    }
+    gate sensor{
+      inRange() : boolean
+    }
+    spot sensor{
+      inRange() : boolean
+    }
+
+  camera
+    license-plate-reader{
+      read()
+      record()
+    }
+  terminal
+    entrance-terminal{
+
+    }
+    exit-terminal{
+      requestTicket()
+      displayFee()
+    }
+
+  qrScanner{
+    on()
+    emit()
+    }
+
+  ticket printer{
+    printTicket()
+  }
+
+  ticket reader{
+    readTicket()
+  }
+
+*/
