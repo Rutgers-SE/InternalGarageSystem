@@ -1,3 +1,4 @@
+"use strict";
 
 var camCount = 0;
 
@@ -71,8 +72,9 @@ function removeParent () {
 }
 
 function powerToggle(){
-  $("device>.power-toggle").click(() => {
+  $(".device > .power-toggle").click(() => {
     var $device = $ (this).parent();
+    $device.classToggle("yellow");
     var exists = _.contains($device.classlist,"d-powered")
     if (exists === "false"){
       this.classlist.add("d-powered");
@@ -91,11 +93,17 @@ function createButtonAndAttachEvents(name, options) {
     var closeButton = createCloseButton();
     var triggerButton = createTriggerButton();
     var powerTrigger = createPowerButton();
-    var powerButton = createButton({display: "bp", className: "power-button"});
+    var powerButton = createButton({display: "Toggle Power", className: "power-button"});
+    powerButton.classList.add("power-toggle");
+
 
     device.appendChild(closeButton);
     device.appendChild(triggerButton);
     device.appendChild(powerButton);
+    $(powerButton).click(function () {
+      $(this).toggleClass("yellow");
+    })
+
     $("#" + name + "-container").append(device);
     camCount++;
 
@@ -106,6 +114,7 @@ function createButtonAndAttachEvents(name, options) {
       })
     });
 
+    powerToggle();
     $(powerButton).click(powerToggle);
   });
 }
