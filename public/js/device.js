@@ -60,6 +60,10 @@ function createCamera(name) {
 
 
 function removeParent () {
+  var socket = this;
+  socket.emit('dev:kill', {
+    id: $(this)
+  })
   var $cameraElement = $(this).parent();
   $cameraElement.remove();
   camCount--;
@@ -77,8 +81,12 @@ function powerToggle(){
 }
 
 function createButtonAndAttachEvents(name, options) {
+  var socket = this;
   $("#create-" + name + "-button").click(function () {
     var device = createDeviceElement(name);
+    var idAttr = document.createAttribute("data-dev-id");
+    idAttr.value = options.id;
+    device.setAttributeNode(idAttr);
 
     var closeButton = createCloseButton();
     var triggerButton = createTriggerButton();
@@ -91,7 +99,7 @@ function createButtonAndAttachEvents(name, options) {
     $("#" + name + "-container").append(device);
     camCount++;
 
-    $(closeButton).click(removeParent);
+    $(closeButton).click(removeParent.bind(socket));
     $(powerButton).click(powerToggle);
   });
 }
@@ -99,22 +107,28 @@ $(function () {
   var socket = io.connect('http://localhost:8080');
   var deviceNames = ["camera", "sensor", "terminal", "gate", "qrScanner"];
   _.each(deviceNames, (name) => {
-
     socket.emit('dev:register', {
       deviceType: name,
-      id: camCount;
+      id: camCount
     });
+  });
 
-    socket.on('dev:successfully-registered', function () {
-      createButtonAndAttachEvents(name);
+  socket.on('dev:successfully-registered', function (pl) {
+    createButtonAndAttachEvents.call(socket, pl.deviceType, {
+      id: pl.id
     });
+  });
+
+  socket.on('dev:killed', function (pl) {
+    if (pl.error !== undefined) {
+      alert("This worked");
+    } else {
+      alert("This worked");
+    }
 
   });
-  // This is where you should attach the event listeners
-
 
   socket.on('update', function (data) {
     console.log(data);
   });
-
 });

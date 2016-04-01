@@ -85,15 +85,28 @@ var registeredDevices = [];
 // This is where the devices will be triggered in "REAL TIME"
 io.on('connection', function (socket) {
   socket.on('dev:kill', function (data) {
+    var oldLength = registeredDevices.length;
     registeredDevices = _.filter(registeredDevices, (devs) => {
+      var id = data.id;
       if (devs.id == data.id) return false;
       return true;
     });
 
+    if (oldLength != registeredDevices.length) {
+      socket.emit('dev:killed', {
+        deviceId: id
+      });
+    } else{
+      socket.emit('dev:killed', {
+        error: "Could not kill the device instance from the system."
+      });
+    }
+
   });
   socket.on('dev:register', function (data) {
+    data.id = Math.random() * 6 + ":" + registeredDevices.length;
     registeredDevices.push(data);
-    socket.emit('dev:successfully-registered');
+    socket.emit('dev:successfully-registered', data);
   });
 });
 
