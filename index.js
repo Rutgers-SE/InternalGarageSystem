@@ -5,26 +5,18 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient,
-  assert = require('assert');
-
-var url = 'mongodb://localhost:27017/garage';
+  assert = require('assert'),
+    url = 'mongodb://localhost:27017/garage';
 
 var spaceManOne = new spaceMan(200);
 
-/*
-MongoClient.connect(url, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected correctly to server");
-
-  db.close();
-});
-*/
-
+app.use(express.static('public'));
 server.listen(8080);
+app.set('view engine', 'jade');
 
 app.get('/', function (req, res) {
-  res.send("Why hello there~");
-  //res.sendfile(__dirname + '/index.html');
+  // this should be the device panel
+  res.render('index');
 });
 
 // This string is how we interface from the reservation system to the garage system.
@@ -94,3 +86,5 @@ io.on('connection', function (socket) {
     console.log(data);
   });
 });
+
+console.log("Listening on port: 8080");
