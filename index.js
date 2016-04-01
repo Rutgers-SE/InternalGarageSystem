@@ -51,6 +51,8 @@ var parseStartFinish = (req) => {
   };
 };
 
+
+
 //Check to see if reservation is available
 app.get('/api/:garage_id/b/checkreservation', function(req, res) {
   var r = parseStartFinish(req);
@@ -79,6 +81,14 @@ app.get('/api/:garage_id/o/getreservedtimes', function(req, res) {
   res.json(spaceManOne.getReservedTimes());
 });
 
+function matchId(id) {
+  return  function (dev) {
+    if (id == dev.id) {
+      return true;
+    }
+  };
+}
+
 var registeredDevices = [];
 var idCounter = 0;
 
@@ -105,11 +115,26 @@ io.on('connection', function (socket) {
 
   });
   socket.on('dev:register', function (data) {
-    data.id = idCounter++;
+    var id = idCounter += 1;
+    data.id = id;
     data.registeredDeviceCount = registeredDevices.length;
     registeredDevices.push(data);
     socket.emit('dev:successfully-registered', data);
   });
+
+
+
+
+
+  socket.on('dev:trigger', function (pl) {
+    var target = _.filter(registeredDevices, matchId(pl.id))
+      .each(function (dev) {
+
+      });
+  });
+
+
+
 });
 
 console.log("Listening on port: 8080");
