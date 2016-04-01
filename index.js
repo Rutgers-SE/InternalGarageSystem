@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var spaceMan = require("./spaceManager.js");
 var express = require("express");
 var app = express();
@@ -78,12 +79,21 @@ app.get('/api/:garage_id/o/getreservedtimes', function(req, res) {
   res.json(spaceManOne.getReservedTimes());
 });
 
+var registeredDevices = [];
+
 //Socket.io
 // This is where the devices will be triggered in "REAL TIME"
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
+  socket.on('dev:kill', function (data) {
+    registeredDevices = _.filter(registeredDevices, (devs) => {
+      if (devs.id == data.id) return false;
+      return true;
+    });
+
+  });
+  socket.on('dev:register', function (data) {
+    registeredDevices.push(data);
+    socket.emit('dev:successfully-registered');
   });
 });
 
