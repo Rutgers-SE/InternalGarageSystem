@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script   src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Garage Devices</title>
+		<style>
+body{
+	background-color: #333;
+}
+#create-camera-button {
+	background-color: #999;
+
+}
+#create-sensor-button {
+	background-color: #888;
+}
+#create-terminal-button {
+	background-color: #777;
+}
+#create-gate-button {
+	background-color: #666;
+}
+#create-qrScanner-button {
+	background-color: #555;
+}
+.camera {
+	background-color: red;
+	height: 95px;
+	width: 95px;
+	margin: 10px 10px 10px 10px;
+	border-radius: 10px;
+	box-shadow: 0 0 .9em #333;
+	display: inline-block;
+}
+		</style>
+		<script>
+
+var camCount = 0;
+
+function createButton(options) {
+	var button = document.createElement("button");
+	button.classList.add(options.className);
+	var text = document.createTextNode(options.display);
+	button.appendChild(text);
+	return button;
+
+}
+
+function createCloseButton() {
+	return createButton({
+		display: "X",
+		className: "close-button"
+	});
+}
+
+function createTriggerButton() {
+	return createButton({
+		display: "->",
+		className:"trigger-button"
+	});
+}
+
+function createPowerButton() {
+	return createButton({
+		display: "Power - ",
+		className: "power-toggle"
+	});
+}
+
+
+function createDeviceElement(name) {
+	if (name === undefined) {
+		name = document.createTextNode(camCount);
+	}
+	name = document.createTextNode(name);
+	var child = document.createElement("div");
+	child.classList.add("camera");
+	child.classList.add("d-powered");
+	child.appendChild(name);
+	return child;
+}
+
+function createCamera(name) {
+	if (name === undefined) {
+		name = document.createTextNode(camCount);
+	}
+	name = document.createTextNode(name);
+	var child = document.createElement("div");
+	child.classList.add("camera");
+	child.classList.add("d-powered");
+	child.appendChild(name);
+	return child;
+}
+
+
+function removeParent () {
+	var $cameraElement = $(this).parent();
+	$cameraElement.remove();
+	camCount--;
+}
+
+function notifySystem() {
+	socket.emit("", {
+
+	});
+}
+
+function powerToggle(){
+	$("device>.power-toggle").click(() => {
+		var $device = $ (this).parent();
+		var exists = _.contains($device.classlist,"d-powered")
+			if (exists === "false"){
+				this.classlist.add("d-powered");
+			}
+
+	})
+}
+
+function createButtonAndAttachEvents(name, options) {
+	$("#create-" + name + "-button").click(function () {
+		var device = createDeviceElement(name);
+
+		var closeButton = createCloseButton();
+		var triggerButton = createTriggerButton();
+		var powerTrigger = createPowerButton();
+		var powerButton = createButton({display: "bp", className: "power-button"});
+
+		device.appendChild(closeButton);
+		device.appendChild(triggerButton);
+		device.appendChild(powerButton);
+		$("#" + name + "-container").append(device);
+		camCount++;
+
+		$(closeButton).click(removeParent);
+		$(triggerButton).click(notifySystem);
+		$(powerButton).click(powerToggle);
+	});
+}
+
+$(document).ready(function () {
+	createButtonAndAttachEvents("camera");
+	createButtonAndAttachEvents("sensor");
+	createButtonAndAttachEvents("terminal");
+	createButtonAndAttachEvents("gate");
+	createButtonAndAttachEvents("qrScanner");
+});
+
+		</script>
+	</head>
+	<body>
+		<div id="sensor-bar">
+			<button id="create-camera-button">Camera</button>
+			<button id="create-sensor-button">Sensor</button>
+			<button id="create-terminal-button">Terminal</button>
+			<button id="create-gate-button">Gate</button>
+			<button id="create-qrScanner-button">QR Scanner</button>
+
+		</div>
+		<div>
+			<div id="camera-container"></div>
+			<div id="sensor-container"></div>
+			<div id="terminal-container"></div>
+			<div id="gate-container"></div>
+			<div id="qrScanner-container"></div>
+		</div>
+	</body>
+</html>

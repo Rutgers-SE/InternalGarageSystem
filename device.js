@@ -237,10 +237,49 @@ function controller() {
     device.on('activate-spot-sensor')
       .where((obj) => {obj.name == "garage-spot-sensor"})
       .do((obj) => {
-        device.name("spot-sensor").init((error) =>
+        device.name("spot-sensor").init((error) => {
           if (error) throw "error message 4"
         });
       });
+
+  device.on('departure-sequence')
+    .where((obj) => { obj.name == "spot-sensor"})
+    .do((obj) => {
+      // departure-sequence initiates
+      // when a spot sensor detects a newly vacated spot
+      // the terminal is activated to communicate with the customer
+      // this also includes ticket reading
+      // this when the customer also pays based on the ticket time
+      device.name("exit-terminal").init((error) => {
+        if (error) throw "error message 5"
+      });
+      device.name("ticket-reader").init((error) => {
+        if (error) throw "error message 51"
+      });
+      device.name("payment-console").init((error) => {
+        if (error) throw "error message 52"
+      });
+    });
+    // when ticket is paid by customer, the gate opens up
+    device.on('open-gate')
+      .where((obj) => {obj.name == "entrance-terminal"})
+      .do((obj) => {
+        device.name("exit-gate").init((error) => {
+          if (error) throw "error message 6"
+        }
+      });
+    // the gate sensor now makes sure the car has
+    // cleared the entrance before closing the gate
+    device.on('gate-pass')
+      .where((obj) => {obj.name == "gate-sensor"})
+      .do((obj) => {
+        device.name("exit-gate").init((error) => {
+          if (error) throw "error message 7"
+        });
+        device.name("exit-gate").terminate());
+      });
+
+
 }
 
 
