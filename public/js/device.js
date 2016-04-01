@@ -33,12 +33,13 @@ function createPowerButton() {
 
 
 function createDeviceElement(name) {
+  var nameText = name;
   if (name === undefined) {
     name = document.createTextNode(camCount);
   }
   name = document.createTextNode(name);
   var child = document.createElement("div");
-  child.classList.add("camera");
+  child.classList.add(nameText);
   child.classList.add("d-powered");
   child.classList.add("col-sm-4");
   child.appendChild(name);
@@ -60,12 +61,12 @@ function createCamera(name) {
 
 
 function removeParent () {
-  var socket = this;
+  var socket = this.socket;
+  var $parent = $(this.$this).parent();
   socket.emit('dev:kill', {
-    id: $(this)
-  })
-  var $cameraElement = $(this).parent();
-  $cameraElement.remove();
+      id: parseInt($parent.attr('data-dev-id'))
+  });
+  $parent.remove();
   camCount--;
 }
 
@@ -76,12 +77,11 @@ function powerToggle(){
     if (exists === "false"){
       this.classlist.add("d-powered");
     }
-
-  })
+  });
 }
 
 function createButtonAndAttachEvents(name, options) {
-  var socket = this;
+  var parent = this;
   $("#create-" + name + "-button").click(function () {
     var device = createDeviceElement(name);
     var idAttr = document.createAttribute("data-dev-id");
@@ -99,7 +99,13 @@ function createButtonAndAttachEvents(name, options) {
     $("#" + name + "-container").append(device);
     camCount++;
 
-    $(closeButton).click(removeParent.bind(socket));
+    $(closeButton).click(function () {
+      removeParent.call({
+        socket: parent.socket,
+        $this: this
+      })
+    });
+
     $(powerButton).click(powerToggle);
   });
 }
@@ -114,16 +120,18 @@ $(function () {
   });
 
   socket.on('dev:successfully-registered', function (pl) {
-    createButtonAndAttachEvents.call(socket, pl.deviceType, {
-      id: pl.id
+    createButtonAndAttachEvents.call({
+      socket: socket
+    }, pl.deviceType, {
+      id: pl.id,
     });
   });
 
   socket.on('dev:killed', function (pl) {
     if (pl.error !== undefined) {
-      alert("This worked");
+      console.info("Kill dev id: " + pl.id);
     } else {
-      alert("This worked");
+      console.info("Kill dev id: " + pl.id);
     }
 
   });

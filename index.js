@@ -80,6 +80,7 @@ app.get('/api/:garage_id/o/getreservedtimes', function(req, res) {
 });
 
 var registeredDevices = [];
+var idCounter = 0;
 
 //Socket.io
 // This is where the devices will be triggered in "REAL TIME"
@@ -104,7 +105,8 @@ io.on('connection', function (socket) {
 
   });
   socket.on('dev:register', function (data) {
-    data.id = Math.random() * 6 + ":" + registeredDevices.length;
+    data.id = idCounter++;
+    data.registeredDeviceCount = registeredDevices.length;
     registeredDevices.push(data);
     socket.emit('dev:successfully-registered', data);
   });
