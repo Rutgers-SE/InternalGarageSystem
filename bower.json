@@ -17,5 +17,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "lodash": "^4.7.0",
+    "bootstrap": "^3.3.6"
+  }
 }
