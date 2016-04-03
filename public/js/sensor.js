@@ -9,4 +9,8 @@ $(function () {
         'meta': {},
       }) 
    });
+
+   socket.on("dev:response", function (data) {
+     console.log(data);
+   });
 });

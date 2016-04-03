@@ -27,11 +27,11 @@ var devoc = new DeviceOrchestrator({io});
 
 io.on('connection', function (socket) {
 
-  devoc.on('dev:trigger', function (payload) {
-    this.emit("dev:response", "this is the response");
+  socket.on('dev:trigger', function (payload) {
+    io.emit("dev:response", "this is the response");
   });
 
-})
+});
 
 
 //Socket.io
