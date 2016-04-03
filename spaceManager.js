@@ -22,7 +22,7 @@ class SpaceManager {
 		var endSection = this.convertToSection(endDateObj);
     //Check that the date reservation range is valid
 		if(startSection < 0 || endSection >= this.timeSlots) {
-			console.log("One or moore of the given dates is outside of range.");
+			console.log("One or more of the given dates is outside of range.");
 			return false;
 		}
     //Check each timeslot to make sure there is enough space

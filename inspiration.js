@@ -78,12 +78,6 @@ var camera = new Device({
         )};
         }
     },
-    readLicense(){
-      licenseNumber = capture(license);
-    }
-    recordLicense(){
-      logToTheMongoDb(licenseNumber);
-    }
     terminate: function(){
       turnOffCamera();
     },
