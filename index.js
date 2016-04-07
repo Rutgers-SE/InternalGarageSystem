@@ -6,13 +6,13 @@ var server = require('http').Server(app);
 var bodyParser = require('body-parser');
 var _ = require('lodash');
 
-var spaceMan = require("./lib/spaceManager.js");
+var SpaceManager = require("./lib/spaceManager.js");
 var DeviceOrchestrator = require('./lib/DeviceOrchestrator');
 
 var api = require("./routes/api");
 var deviceViews = require('./routes/devices');
 
-var spaceManOne = new spaceMan(200);
+var spaceManOne = new SpaceManager(200);
 
 server.listen(8080);
 app.use(express.static('public'));
