@@ -5,9 +5,8 @@ var _ = require('lodash');
 
 // web  server deps
 var app = require('express')();
-var io = require('socket.io')(server);
 var server = require('http').Server(app);
-var bodyParser = require('body-parser');
+var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
 server.listen(8080);
 
 // project libs
@@ -20,7 +19,7 @@ var spaceManOne = new SpaceManager(200);
 require('./routes/middleware')(app);
 require('./routes')(app);
 
-var doc = new DeviceOrchestrator({io:io});
+var doc = new DeviceOrchestrator({io});
 
 // the templates for the signals should be stored in the signals subdirectory
 // These are not simplemented
@@ -29,13 +28,16 @@ var doc = new DeviceOrchestrator({io:io});
 //var term = require('./lib/signals/terminal');
 //var gate = require('./lib/signals/gate')
 
+
+
 // This should be the entrance sequence
-//doc.sequence('entrance')
-  //.addRelay(sense.entrance.hi, term.qr.display)
-  //.addRelay(term.qr.payload, gate.entranceGate.open)
-  //.addRelay(gate.entranceGate.opened, DeviceOrchestrator.noReponse)
-  //.addRelay([sense.entranceAG.hi, sense.entranceAG.low], gate.entranceGate.close)
-  //.addRelay(gate.entranceGate.closed, DeviceOrchestrator.complete);
+doc.defineSequence('entrance')
+  .addRelay([new Relay({
+    'name': 'entrance-pre-term-sensor',
+    'meta': {
+      'status': true
+    },
+  }, {'name': 'entrance-terminal'})]);
 
 //doc.sequence('parking')
   //.addRelay(doc.completion('entrance'), sense.all)
