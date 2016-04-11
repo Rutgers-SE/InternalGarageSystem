@@ -6,13 +6,13 @@ The potion of the website that controls device registration, and activation
 When running the code, run with:
 
 ```
-node --harmony_destructuring index
+npm run prod
 ```
 
 When development, make sure that `nodemon` is installed, and run an `npm install`
 
 ```
-nodemon --harmony_destructuring index
+npm run dev
 ```
 
 
