@@ -1,14 +1,31 @@
 # InternalGarageSystem
 The potion of the website that controls device registration, and activation
 
+# IMPORTANT
+
+When running the code, run with:
+
+```
+node --harmony_destructuring index
+```
+
+When development, make sure that `nodemon` is installed, and run an `npm install`
+
+```
+nodemon --harmony_destructuring index
+```
+
+
+
 ## Todo list
 
-- [ ] DeviceModel
-  - [ ] Define the interface for a generic device (refer to the reports)
-- [ ] DeviceController
+- [x] DeviceModel
+  - [x] Define the interface for a generic device (refer to the reports)
+- [x] DeviceController
   - [ ] Define a composer that runs devices in a certain pattern
-- [ ] GarageModel
+- [x] GarageModel
   - Make sure that the theoretical reservedTimes are the same as the physicall spaces occupied.
+- [Sequence] a DS that iterates when a certain payload is received
 
 
 ### GarageModel
