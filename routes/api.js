@@ -1,4 +1,8 @@
+"use strict";
+
 var r = require("express").Router();
+
+// we need to use passport for OAuth2
 
 r.get('/:garage_id/b/full', function (req, res) {
   // look at the current instance of
@@ -24,6 +28,7 @@ var parseStartFinish = (req) => {
 //Check to see if reservation is available
 r.get('/:garage_id/b/checkreservation', function(req, res) {
   var r = parseStartFinish(req);
+  var {start, finish} = parseStartFinish(req);
   res.json(spaceManOne.checkReservation(r.start, r.finish));
 });
 
