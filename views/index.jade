@@ -1,14 +1,16 @@
-html
+html(ng-app="device-dash")
     head
         title this is awesome
         script(src="/socket.io/socket.io.js")
         script(src="/vendor/jquery/dist/jquery.min.js")
         script(src="/vendor/lodash/dist/lodash.min.js")
         link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+        script(src='/vendor/angular/angular.js')
         link(rel="stylesheet", href="/css/style.css")
 
+        script(src="/js/socket.js")
         script(src="/js/device.js")
-    body
+    body(ng-controller="DashController")
         #sensor-bar
             button(id="create-camera-button") Camera
             button(id="create-sensor-button") Sensor

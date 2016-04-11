@@ -42,9 +42,6 @@ doc.defineSequence('entrance')
     {'name': 'entrance-gate', 'meta': {'action': 'open'}}
   )]);
 
-//doc.sequence('parking')
-  //.addRelay(doc.completion('entrance'), sense.all)
-  //.addRelay(sense.parkingSpot.captureId, sense.turnOfEveryExcept);
 
 doc.listen([
   'entrance',

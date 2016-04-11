@@ -1,8 +1,19 @@
 "use strict";
 
+var app = angular.module('device-dash', ['SocketIO']);
+
+
+app.controller('DashController', function ($scope, socket) {
+  socket.on('dev:registered', function (pl) {
+    console.log(pl.name + " registered");
+  });
+});
+
+
 var camCount = 0;
 
 function createButton(options) {
+  script(src='/vendor/angular/angular.js')
   var button = document.createElement("button");
   button.classList.add(options.className);
   var text = document.createTextNode(options.display);
