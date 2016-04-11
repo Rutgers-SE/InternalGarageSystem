@@ -1,28 +1,26 @@
 "use strict";
-var express = require("express");
-var app = express();
+// programming deps
+var _ = require('lodash');
+
+
+// web  server deps
+var app = require('express')();
 var io = require('socket.io')(server);
 var server = require('http').Server(app);
 var bodyParser = require('body-parser');
-var _ = require('lodash');
+server.listen(8080);
 
+// project libs
 var SpaceManager = require("./lib/spaceManager.js");
-var DeviceOrchestrator = require('./lib/DeviceOrchestrator');
+var {DeviceOrchestrator, Sequence, Relay} = require('./lib/DeviceOrchestrator');
 
 var spaceManOne = new SpaceManager(200);
 
-server.listen(8080);
 
-// adding some mittleware
-app.use(express.static('public'));
-app.set('view engine', 'jade');
+require('./routes/middleware')(app);
+require('./routes')(app);
 
-// Mounting sub route trees
-app.use('/', require('./routes/interaction'));
-app.use('/api', require('./routes/api')); 
-app.use('/devices', require('./routes/devices')); 
-
-var doc = new DeviceOrchestrator({io});
+var doc = new DeviceOrchestrator({io:io});
 
 // the templates for the signals should be stored in the signals subdirectory
 // These are not simplemented
@@ -48,6 +46,5 @@ doc.listen([
   'parking',
   'exit'
 ]);
-// this call invokes the io.on('connection') function
 
 console.log("Listening on port: 8080");
