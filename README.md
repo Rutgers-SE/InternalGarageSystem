@@ -25,7 +25,7 @@ nodemon --harmony_destructuring index
   - [ ] Define a composer that runs devices in a certain pattern
 - [x] GarageModel
   - Make sure that the theoretical reservedTimes are the same as the physicall spaces occupied.
-- [Sequence] a DS that iterates when a certain payload is received
+- [x] Sequence a DS that iterates when a certain payload is received
 
 
 ### GarageModel
