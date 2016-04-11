@@ -32,12 +32,15 @@ var doc = new DeviceOrchestrator({io});
 
 // This should be the entrance sequence
 doc.defineSequence('entrance')
-  .addRelay([new Relay({
-    'name': 'entrance-pre-term-sensor',
-    'meta': {
-      'status': true
-    },
-  }, {'name': 'entrance-terminal'})]);
+  .addRelay([new Relay(
+    {'name': 'entrance-pre-term-sensor', 'meta': { 'status': true }}, 
+    {'name': 'entrance-terminal'}
+  )])
+  
+  .addRelay([new Relay(
+    {'name': 'entrance-terminal-qr'}, 
+    {'name': 'entrance-gate', 'meta': {'action': 'open'}}
+  )]);
 
 //doc.sequence('parking')
   //.addRelay(doc.completion('entrance'), sense.all)
