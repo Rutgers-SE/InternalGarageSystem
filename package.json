@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --harmony_destructuring index"
+    "dev": "nodemon --harmony_destructuring index",
+    "prod": "node --harmony_destructuring index"
   },
   "repository": {
     "type": "git",

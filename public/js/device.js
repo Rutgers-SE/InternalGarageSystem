@@ -1,7 +1,6 @@
 "use strict";
 
-var app = angular.module('device-dash', ['SocketIO']);
-
+var app = angular.module('device-dash', ['SocketIO', 'DeviceViews']);
 
 app.controller('DashController', function ($scope, socket) {
   socket.on('dev:registered', function (pl) {
