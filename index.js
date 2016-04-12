@@ -29,7 +29,6 @@ var doc = new DeviceOrchestrator({io});
 //var gate = require('./lib/signals/gate')
 
 
-
 // This should be the entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
@@ -50,3 +49,17 @@ doc.listen([
 ]);
 
 console.log("Listening on port: 8080");
+
+
+io.on("connection", (socket) => {
+  socket.on("Device:Register", (pl)=> {
+
+
+  });
+
+});
+
+
+
+
+
