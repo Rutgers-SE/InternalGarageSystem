@@ -1,10 +1,17 @@
 "use strict";
 
-var app = angular.module('device-dash', ['SocketIO', 'DeviceViews']);
+var app = angular.module('device-dash', ['DeviceViews']);
+var socket = io.connect('http://localhost:8080');
 
-app.controller('DashController', function ($scope, socket) {
+app.controller('DashController', function ($scope) {
   socket.on('dev:registered', function (pl) {
     console.log(pl.name + " registered");
+  });
+
+
+
+  socket.on('dev:notify', function (pl) {
+    alert("something");
   });
 });
 
@@ -128,34 +135,3 @@ function createButtonAndAttachEvents(name, options) {
     $(powerButton).click(powerToggle);
   });
 }
-$(function () {
-  var socket = io.connect('http://localhost:8080');
-  var deviceNames = ["camera", "sensor", "terminal", "gate", "qrScanner"];
-  _.each(deviceNames, (name) => {
-    socket.emit('dev:register', {
-      deviceType: name,
-      id: camCount
-    });
-  });
-
-  socket.on('dev:successfully-registered', function (pl) {
-    createButtonAndAttachEvents.call({
-      socket: socket
-    }, pl.deviceType, {
-      id: pl.id,
-    });
-  });
-
-  socket.on('dev:killed', function (pl) {
-    if (pl.error !== undefined) {
-      console.info("Kill dev id: " + pl.id);
-    } else {
-      console.info("Kill dev id: " + pl.id);
-    }
-
-  });
-
-  socket.on('update', function (data) {
-    console.log(data);
-  });
-});
