@@ -1,6 +1,6 @@
 html(ng-app="device-dash")
     head
-        title this is awesome
+        title Device Dash
         script(src="/socket.io/socket.io.js")
         script(src="/vendor/jquery/dist/jquery.min.js")
         script(src="/vendor/lodash/dist/lodash.min.js")
@@ -14,40 +14,46 @@ html(ng-app="device-dash")
     body(ng-controller="DashController")
         .container
             .row
-                .col-sm-12.col-md-6
-                    #camera-information.panel.panel-default
-                        .panel-heading
-                            h4 Cameras
-                        .row
-                            #camera-container
-                .col-sm-12.col-md-6
-                    #sensor-information.panel.panel-default
-                        .panel-heading
-                            h4 Sensors
-                        .row
-                            #sensor-container
-                .col-sm-12.col-md-6
-                    #terminal-information.panel.panel-default
-                        .panel-heading
-                            h4 Terminals
-                        .row
-                            #terminal-container
-                .col-sm-12.col-md-6
-                    #gate-information.panel.panel-default
-                        .panel-heading
-                            h4 Gates
-                        .row
-                            #gate-container.col-md-3(ng_repeat="g in gate")
+                .col-md-6
+                    h3 Sequence
+                    .row
+                .col-md-6
+                    h3 Devices
+                    .row
+                        .col-sm-12
+                            #camera-information.panel.panel-default
+                                .panel-heading
+                                    h4 Cameras
+                                .row
+                                    #camera-container
+                        .col-sm-12
+                            #sensor-information.panel.panel-default
+                                .panel-heading
+                                    h4 Sensors
+                                .row
+                                    #sensor-container
+                        .col-sm-12
+                            #terminal-information.panel.panel-default
+                                .panel-heading
+                                    h4 Terminals
+                                .row
+                                    #terminal-container
+                        .col-sm-12
+                            #gate-information.panel.panel-default
+                                .panel-heading
+                                    h4 Gates
+                                .row
+                                    #gate-container.col-md-3(ng_repeat="g in gate")
 
-                                .thumbnail
-                                    .caption
-                                        h3 {{g}}
-                                        p this is some bs
-                                        a.btn.btn-primary signal
+                                        .thumbnail
+                                            .caption
+                                                h3 {{g}}
+                                                p this is some bs
+                                                a.btn.btn-primary signal
 
-                .col-sm-12.col-md-6
-                    #qr-scanner-information.panel.panel-default
-                        .panel-heading
-                            h4 QR Scanners
-                        .row
-                            #qrScanner-container
+                        .col-sm-12
+                            #qr-scanner-information.panel.panel-default
+                                .panel-heading
+                                    h4 QR Scanners
+                                .row
+                                    #qrScanner-container

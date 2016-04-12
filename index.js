@@ -21,13 +21,6 @@ require('./routes')(app);
 
 var doc = new DeviceOrchestrator({io});
 
-// the templates for the signals should be stored in the signals subdirectory
-// These are not simplemented
-
-//var sense = require('./lib/signals/sensor');
-//var term = require('./lib/signals/terminal');
-//var gate = require('./lib/signals/gate')
-
 doc.on('dev:register', function (payload) {
   console.log(payload.name);
   doc.emit('dev:notify', {
@@ -42,13 +35,28 @@ doc.on('dev:register', function (payload) {
 // This should be the entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
-    {'name': 'entrance-pre-term-sensor'}, 
-    {'name': 'entrance-terminal'}
+    {'name': 'pre-entrance-sensor', 'value': true}, 
+    {'name': 'entrance-terminal', 'command': 'display!'}
   )])
-  
   .addRelay([new Relay(
-    {'name': 'entrance-terminal-qr'}, 
-    {'name': 'entrance-gate', 'meta': {'action': 'open'}}
+    {'name': 'entrance-terminal', 'qr-data': ''}, 
+    {'name': 'entrance-gate', 'command': 'open!'}
+  )])
+  .addRelay([new Relay(
+    {'name': 'entrance-gate', 'status': 'opened'},
+    {}
+  )])
+  .addRelay([new Relay(
+    {'name': 'post-entrance-sensor', 'value': true},
+    {}
+  )])
+  .addRelay([new Relay(
+    {'name': 'post-entrance-sensor', 'value': false},
+    {'name': 'entrance-gate', 'command': 'close!'}
+  )])
+  .addRelay([new Relay(
+    {'name': 'entrance-gate', 'status': 'closed'},
+    {}
   )]);
 
 
@@ -59,17 +67,3 @@ doc.listen([
 ]);
 
 console.log("Listening on port: 8080");
-
-
-io.on("connection", (socket) => {
-  socket.on("Device:Register", (pl)=> {
-
-
-  });
-
-});
-
-
-
-
-

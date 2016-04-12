@@ -1,8 +1,7 @@
 
 var app = angular.module('gate-device', ['SocketIO']);
-var socket = io.connect('http://localhost:8080');
 
-app.controller("GateController", function ($scope) {
+app.controller("GateController", function ($scope, socket) {
   $scope.open = function () {
     console.log("should do something");
   };
@@ -21,6 +20,7 @@ app.controller("GateController", function ($scope) {
 
 
   socket.on('dev:registered', function (payload) {
+    console.log("awesome")
     if (payload.deviceName === $scope.name) {
       $scope.registrationStatus = "registered!";
     } 
