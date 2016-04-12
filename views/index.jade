@@ -37,7 +37,14 @@ html(ng-app="device-dash")
                         .panel-heading
                             h4 Gates
                         .row
-                            #gate-container
+                            #gate-container.col-md-3(ng_repeat="g in gate")
+
+                                .thumbnail
+                                    .caption
+                                        h3 {{g}}
+                                        p this is some bs
+                                        a.btn.btn-primary signal
+
                 .col-sm-12.col-md-6
                     #qr-scanner-information.panel.panel-default
                         .panel-heading
