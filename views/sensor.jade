@@ -1,4 +1,4 @@
-html
+html(ng-app='sensor-view')
   head
     title Sarah the sensor
     script(src="/socket.io/socket.io.js")
@@ -7,5 +7,6 @@ html
     script(src='/vendor/angular/angular.js')
     script(src='/js/socket.js')
     script(src="/js/sensor.js")
-  body
+  body(ng-controller="SensorController")
     button#sensed Sense
+    input(type="text", ng-model="devName", placeholder="Sarah")

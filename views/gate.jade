@@ -1,10 +1,14 @@
-html
+!!!
+html(ng-app="GateDevice")
   head
-    title Ted the terminal
+    title Garry the gate
     script(src="/socket.io/socket.io.js")
     script(src="/vendor/jquery/dist/jquery.min.js")
     script(src="/vendor/lodash/dist/lodash.min.js")
+    script(src="/vendor/angular/angular.js")
+    script(src='/js/socket.js')
     script(src="/js/gate.js")
-  body
-    button#walkin Walkin
-    button#qr Reservation
+  body(ng-controller="GateController")
+    button#open-gate open
+    button#close-gate close
+    h2#gate-status(ng-model="status")

@@ -1,7 +1,7 @@
 (function () {
   var app = angular.module('DeviceViews', []);
 
-  app.directive('Device', function () {
+  app.directive('isDevice', function () {
     return {
       restrict: 'E',
       template: "<div class='col-sm-4'>" +

@@ -1,19 +1,13 @@
 $(function () {
-  var socket = io.connect('http://localhost:8080');
-   $('#qr').click(function () {
-      socket.emit('dev:trigger', {
-        'name': 'entrance-term-qr'
-      }) 
-   });
 
+  var app = angular.module('GateDevice', ['SocketIO']);
 
-   $("#sensed").mousedown(function () {
-     console.log("This should only happen once");
-   });
+  app.controller("GateController", function ($scope, socket) {
+    $scope.open = function () {};
+    $scope.close = function () {};
+    $scope.status = "closed";
+    $scope.updateStatus = function () {
+    };
+  });
 
-   socket.on("dev:command", function (data) {
-     if (data.name === "entrance-gate") {
-       alert("Opening the gate");
-     }
-   });
 });
