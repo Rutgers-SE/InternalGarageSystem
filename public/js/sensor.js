@@ -1,9 +1,29 @@
 var app = angular.module('sensor-view', []);
 
 app.controller('SensorController', function ($scope) {
-  $scope.devName = "testing";
+  $scope.stateText = "Switch to HI";
+  $scope.pageStatus = "LO";
+  $scope.toggleSignal = function(){
+    if ($scope.stateText === "Switch to HI"){
+      $scope.stateText = "Switch to LO";
+      $scope.pageStatus = "HI";
+    }
+    else{
+      $scope.stateText = "Switch to HI";
+      $scope.pageStatus = "LO";
+    }
+  };
 });
 
+var socket = io.connection();
+socket.emit("device:register",{
+  name:$scope.name,
+  devType:"Sensor"
+});
+socket.on("device:register", function(payload){
+    
+});
+  
 
 $(function () {
   var socket = io.connect('http://localhost:8080');

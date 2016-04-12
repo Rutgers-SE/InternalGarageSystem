@@ -9,4 +9,9 @@ html(ng-app='sensor-view')
     script(src="/js/sensor.js")
   body(ng-controller="SensorController")
     button#sensed Sense
-    input(type="text", ng-model="devName", placeholder="Sarah")
+    h2 Device Name:
+    h1(ng-bind="devName")
+    h2 Device Status: 
+    h1(ng-bind="pageStatus") Status 
+    input(type="text", ng-model="devName", placeholder="Device Name")
+    button(ng-click="toggleSignal()") {{stateText}}

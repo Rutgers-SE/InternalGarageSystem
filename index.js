@@ -39,7 +39,6 @@ doc.on('dev:register', function (payload) {
   })
 });
 
-
 // This should be the entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
@@ -60,3 +59,17 @@ doc.listen([
 ]);
 
 console.log("Listening on port: 8080");
+
+
+io.on("connection", (socket) => {
+  socket.on("Device:Register", (pl)=> {
+
+
+  });
+
+});
+
+
+
+
+
