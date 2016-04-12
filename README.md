@@ -16,6 +16,15 @@ npm run dev
 ```
 
 
+## Event System Specification
+
+When connecting a device (html view) to the event system, you must vist the path `/device/:deviceType`. When visiting this page, you have the ability register the current device type with the event system. You must enter a unique name, or the system might run into a failure.
+
+### Event Sequence Speicification
+
+
+
+
 
 ## Todo list
 
