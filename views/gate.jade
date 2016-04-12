@@ -1,14 +1,18 @@
-!!!
-html(ng-app="GateDevice")
+html(ng-app="gate-device")
   head
     title Garry the gate
+    script(src="/vendor/lodash/dist/lodash.min.js")
     script(src="/socket.io/socket.io.js")
     script(src="/vendor/jquery/dist/jquery.min.js")
-    script(src="/vendor/lodash/dist/lodash.min.js")
     script(src="/vendor/angular/angular.js")
     script(src='/js/socket.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    button#open-gate open
-    button#close-gate close
-    h2#gate-status(ng-model="status")
+    h2#gate-status {{status}}
+    input(ng_model="name")
+    button(ng_click="register()") Register
+    br
+    br
+    h4 {{registrationStatus}}
+    button#open-gate(ng_click="open()") open
+    button#close-gate(ng_click="close()") close

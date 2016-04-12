@@ -28,11 +28,21 @@ var doc = new DeviceOrchestrator({io});
 //var term = require('./lib/signals/terminal');
 //var gate = require('./lib/signals/gate')
 
+doc.on('dev:register', function (payload) {
+  console.log(payload.name);
+  doc.emit('dev:notify', {
+    name: 'command-panel',
+    meta: {
+      deviceName: payload.name,
+      deviceType: payload.deviceType
+    }
+  })
+});
 
 // This should be the entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
-    {'name': 'entrance-pre-term-sensor', 'meta': { 'status': true }}, 
+    {'name': 'entrance-pre-term-sensor'}, 
     {'name': 'entrance-terminal'}
   )])
   
