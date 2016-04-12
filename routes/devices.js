@@ -12,9 +12,9 @@ _.each([
   'ninja',
   'pizza-guy',
   'car-wash',
-  'terminal'], function (node) { 
-    r.get('/' + node , function (req, res) { 
-      res.render(node);
+  'terminal'], function (device) { 
+    r.get('/' + device , function (req, res) { 
+      res.render(device);
     });
   });
 
