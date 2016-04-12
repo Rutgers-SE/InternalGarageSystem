@@ -20,7 +20,10 @@ app.controller("GateController", function ($scope) {
   };
 
 
-  socket.on('dev:registerd', function (payload) {
+  socket.on('dev:registered', function (payload) {
+    if (payload.deviceName === $scope.name) {
+      $scope.registrationStatus = "registered!";
+    } 
   });
 
 
@@ -28,7 +31,7 @@ app.controller("GateController", function ($scope) {
   $scope.updateStatus = function () {
   };
 
-  $scope.registrationStatus = "unregisterd";
+  $scope.registrationStatus = "unregisterd.";
   $scope.name = "unnamed";
 });
 
