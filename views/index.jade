@@ -30,6 +30,7 @@ html(ng-app="device-dash")
                             #sensor-information.panel.panel-default
                                 .panel-heading
                                     h4 Sensors
+                                    button(ng-click="newSensor()") new sensor
                                 .row
                                     #sensor-container.col-md-12(ng_repeat="g in sensor")
                                         .thumbnail
@@ -37,6 +38,7 @@ html(ng-app="device-dash")
                                                 h3 {{g.name}}
                                                 p this is some bs
                                                 a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
                         .col-sm-12
                             #terminal-information.panel.panel-default
                                 .panel-heading
@@ -47,6 +49,7 @@ html(ng-app="device-dash")
                             #gate-information.panel.panel-default
                                 .panel-heading
                                     h4 Gates
+                                    button(ng-click="newGate()") new gate
                                 .row
                                     #gate-container.col-md-12(ng_repeat="g in gate")
                                         .thumbnail

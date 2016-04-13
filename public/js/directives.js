@@ -14,7 +14,7 @@
   .directive('isDevice', function () {
     return {
       restrict: 'E',
-      controller: function ($scope, socket) {
+      controller: function ($scope, socket, $window) {
         // {{{
         $scope.name = $scope.deviceType + "-" + createRandomName(5);
         $scope.savedName = undefined;
@@ -29,7 +29,7 @@
           socket.emit('dev:rename', {
             oldName: $scope.savedName,
             newName: $scope.name,
-            deviceType: 'gate'
+            deviceType: $scope.deviceType
           });
         };
 
@@ -37,7 +37,12 @@
         socket.emit('dev:setup', {
           deviceType: $scope.deviceType,
           name: $scope.name
-        })
+        });
+
+        socket.on('dev:close', function () {
+          console.log("Closing Device")
+          $window.close();
+        });
 
         $scope.nameSaveState = function () {
           if ($scope.savedName === $scope.name ) {

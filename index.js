@@ -89,6 +89,24 @@ doc.on('dev:setup', function ({deviceType, name}) {
   updatePanel();
 });
 
+doc.on('dev:close', function (pl) {
+  console.log("Closing device " + pl.name)
+  var closedDevSocket = null;
+  devices = _.filter(devices, function ({name, deviceType, socket}) {
+    if (name === pl.name && deviceType === pl.deviceType) {
+      closedDevSocket = socket;
+      return false;
+    }
+    return true;
+  });
+
+  if (closedDevSocket !== null) {
+    closedDevSocket.emit('dev:close')
+    updatePanel();
+  }
+
+});
+
 doc.on('dev:rename', function ({newName, oldName, deviceType}) {
   var socket = this;
   
