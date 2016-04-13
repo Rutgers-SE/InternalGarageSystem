@@ -2,12 +2,30 @@
 // programming deps
 var _ = require('lodash');
 
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+var port = normalizePort(process.env.PORT || '8080')
 
 // web  server deps
 var app = require('express')();
+app.set('port', port);
 var server = require('http').Server(app);
 var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
-server.listen(8080);
+server.listen(port);
 
 // project libs
 var SpaceManager = require("./lib/spaceManager.js");
@@ -123,4 +141,4 @@ doc.listen([
   'exit'
 ]);
 
-console.log("Listening on port: 8080");
+console.log("Listening on port: " + port);
