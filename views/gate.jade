@@ -10,9 +10,8 @@ html(ng-app="gate-device")
     script(src='/js/socket.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    h2#gate-status {{past(status)}}
+    h1#gate-status {{past(status)}}
     button#toggle-gate(ng-click="toggleStatus()") press me to {{opposite(status)}}
-    br
     br
     .form-inline
       .form-group
