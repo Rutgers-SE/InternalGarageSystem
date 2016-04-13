@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('gate-device', ['SocketIO', 'isDirectives', 'objectTable']);
+var app = angular.module('gate-device', ['SocketIO', 'isDirectives']);
 
 
   function createRandomName(length) {

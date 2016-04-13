@@ -23,7 +23,6 @@
     "lodash": "^4.7.0",
     "bootstrap": "^3.3.6",
     "angular": "^1.5.3",
-    "angular-xeditable": "^0.1.11",
-    "angular-object-table": "^0.2.2"
+    "angular-xeditable": "^0.1.11"
   }
 }

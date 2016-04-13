@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('device-panel', ['SocketIO', 'xeditable', 'objectTable']);
+var app = angular.module('device-panel', ['SocketIO', 'xeditable']);
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3';
