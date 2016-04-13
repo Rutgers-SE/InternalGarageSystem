@@ -37,15 +37,11 @@ var spaceManOne = new SpaceManager(200);
 require('./routes/middleware')(app);
 require('./routes')(app);
 
-
-
 // I want this porition to be in a separate file
-
 var doc = new DeviceOrchestrator({io});
 
 // storing all of the devices in the system
 var devices = [];
-
 
 function serializeDevices(lst) {
   return _.map(lst, function ({name, deviceType, socket}) {
