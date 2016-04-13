@@ -9,8 +9,6 @@ app.controller('DashController', function ($scope, socket) {
   $scope.sensor = [];
   $scope.terminal = [];
   
-  socket.emit('panel:setup', {
-  });
 
   socket.on('panel:alert', function (devState) {
     console.log(devState);
@@ -24,5 +22,8 @@ app.controller('DashController', function ($scope, socket) {
   socket.on('panel:update-devices', function (pl) {
     console.info(pl);
   });
+
+
+  socket.emit('panel:setup');
 });
 

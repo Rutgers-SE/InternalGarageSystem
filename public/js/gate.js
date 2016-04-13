@@ -2,21 +2,56 @@
 
 var app = angular.module('gate-device', ['SocketIO']);
 
+function createRandomName(length) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for( var i=0; i < length; i++ )
+  text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+
+function past(w) {
+  switch(w) {
+    case 'open':
+      return w + 'ed';
+      break;
+    case 'close':
+      return w + 'd';
+      break;
+    default:
+      return w + 'ed';
+  }
+}
+
+function opposite (s) {
+    if (s === 'close') {
+      return 'open';
+    } 
+    return 'close';
+}
+
 app.controller("GateController", function ($scope, socket) {
-  $scope.name = "unnamed";
+  $scope.name = "gate-" + createRandomName(5);
   $scope.savedName = undefined;
+  $scope.status = 'close';
 
-  $scope.open = function () {
-    // TODO: emit some signal to the backend
-    // When the emition was successfull
-    $scope.status = 'opened';
+
+  $scope.nameSaveState = function () {
+    if ($scope.savedName === $scope.name ) {
+      return "ok";
+    }
+    return "remove"
   };
 
-  $scope.close = function () {
-    // TODO: emit some signal to the backend
-    // When the emition was successfull
-    $scope.status = 'closed';
+  $scope.toggleStatus = function () {
+    $scope.status = opposite($scope.status);
   };
+
+  $scope.opposite = opposite;
+  $scope.past = past;
 
   socket.on('dev:name-saved', function (pl) {
     $scope.savedName = pl.name;

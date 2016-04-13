@@ -10,10 +10,12 @@ html(ng-app="gate-device")
     script(src='/js/socket.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    h2#gate-status {{status}}
-    h5 The name that is in the system: {{savedName}}
-    input(ng_model="name")
-    button(ng_click="updateName()") Rename
+    h2#gate-status {{past(status)}}
+    button#toggle-gate(ng-click="toggleStatus()") press me to {{opposite(status)}}
     br
-    button#open-gate(ng_click="open()") open
-    button#close-gate(ng_click="close()") close
+    br
+    //p The name that is in the system: {{savedName}}
+    .form-group
+      span(class="glyphicon glyphicon-{{nameSaveState()}}", aria-hidden="true")
+      input.form-control(ng_model="name", value="{{savedName}}")
+      button(ng_click="updateName()") Rename
