@@ -1,3 +1,5 @@
+"use strict";
+
 (function () {
 
   function createRandomName(length) {
@@ -11,42 +13,69 @@
   }
 
   angular.module('isDirectives', ['SocketIO'])
+  .factory('DeviceState', function () {
+    return {
+      default: function (deviceType, status) {
+        return {
+          deviceType: deviceType,
+          name: deviceType + "-" + createRandomName(5),
+          status: status
+        };
+      },
+      empty: function (status) {
+        return {
+          deviceType: null,
+          name: null,
+          status: status
+        };
+      }
+    }
+  })
   .directive('isDevice', function () {
     return {
       restrict: 'E',
       controller: function ($scope, socket, $window) {
+        socket.emit('dev:setup', $scope.state);
         // {{{
-        $scope.name = $scope.deviceType + "-" + createRandomName(5);
-        $scope.savedName = undefined;
-        socket.on('dev:updated', function (pl) {
-          $scope.savedName = pl.name;
-        });
+
+        $scope.saveObject = function () {
+          console.log("Current ", $scope.state );
+          console.log("Saved ", $scope.savedState);
+          if (_.isEqual($scope.state, $scope.savedState)) return {
+            text: 'synced',
+            className: 'success'
+          };
+
+          return { text: 'stale', className: 'danger' }
+        };
 
         // ditching the registration scheme
         // each socket will represent a device
         // in the system
-        $scope.updateName = function () {
-          socket.emit('dev:rename', {
-            oldName: $scope.savedName,
-            newName: $scope.name,
-            deviceType: $scope.deviceType
+
+        $scope.updateState = function () {
+          console.log($scope.state.name + " --> dev:update");
+          socket.emit('dev:update', {
+            newState: $scope.state,
+            oldState: $scope.savedState
           });
         };
 
-        // initial setup
-        socket.emit('dev:setup', {
-          deviceType: $scope.deviceType,
-          name: $scope.name,
-          state: $scope.deviceState
+        socket.on('dev:updated', function (updatedDeviceObject) {
+          console.log("Updated Object", updatedDeviceObject);
+          _.merge($scope.savedState, updatedDeviceObject);
+          _.merge($scope.state, updatedDeviceObject);
         });
 
+
+        // initial setup
         socket.on('dev:close', function () {
           console.log("Closing Device")
           $window.close();
         });
 
         $scope.nameSaveState = function () {
-          if ($scope.savedName === $scope.name ) {
+          if ($scope.savedState.name === $scope.state.name ) {
             return "saved";
           }
           return   "not saved"
@@ -54,28 +83,35 @@
         // }}}
       },
       scope: {
-        deviceType: '=type',
-        deviceState: '=state',
-        updateFn: '@update'
+        state: '=state',
+        savedState: '=savedState'
       },
       transclude: true,
       template: function () {
         return `
         <div class="panel panel-default">
+
         <div class="panel-heading">
-        <h3>{{deviceType}}:{{savedName}}</h3>
+        <h3>{{state.deviceType}}:{{savedState.name}} <span class="label label-{{saveObject().className}}">{{saveObject().text}}</span></h3>
         </div>
+
         <ng-transclude />
+
         <div class="panel-footer">
 
         <div class="form-inline">
         <div class="form-group">
         <div class="input-group">
+
         <div class="input-group-addon">{{nameSaveState()}}</div>
-        <input class="form-control" ng-model="name" value="{{savedName}}" />
+
+        <input class="form-control" ng-model="state.name" value="{{savedState.name}}" />
+
         </div>
-        <button class="btn btn-primary" ng-click="updateName()">Update Name</button>
+
+
         </div>
+        <button class="btn btn-primary" ng-click="updateState()">update state</button>
         </div>
 
         </div>

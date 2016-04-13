@@ -23,11 +23,13 @@ app.controller('PanelController', function ($scope, socket) {
   $scope.newGate = openDevFn("gate");
   $scope.newSensor = openDevFn("sensor");
   $scope.newTerminal = openDevFn("terminal");
+  $scope.newCamera = openDevFn("camera");
 
   $scope.devices = {};
   $scope.gate = [];
   $scope.sensor = [];
   $scope.terminal = [];
+  $scope.camera = [];
   
   $scope.closeDevice = function (name, dType) {
     console.log("Closing Dev:(" + name + ":" + dType + ")");

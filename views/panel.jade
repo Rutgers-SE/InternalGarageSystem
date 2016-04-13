@@ -32,8 +32,20 @@ html(ng-app="device-panel")
                             #camera-information.panel.panel-default
                                 .panel-heading
                                     h4 Cameras
+                                    button(ng-click="newCamera()") new Camera
                                 .row
-                                    #camera-container
+                                    #camera-container.col-md-12(ng_repeat="g in camera")
+                                        .thumbnail
+                                            .caption
+                                                h3(editable-text="g.name") {{g.name}}
+                                                table.table.table-responsive.table-striped
+                                                    tr
+                                                        th Variable
+                                                        th Value
+                                                    tr(ng-repeat="(key, value) in g.status")
+                                                        td {{key}}
+                                                        td {{value}}
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
                         .col-sm-12
                             #sensor-information.panel.panel-default
                                 .panel-heading
@@ -44,8 +56,13 @@ html(ng-app="device-panel")
                                         .thumbnail
                                             .caption
                                                 h3(editable-text="g.name") {{g.name}}
-                                                p this is some bs
-                                                a.btn.btn-primary signal
+                                                table.table.table-responsive.table-striped
+                                                    tr
+                                                        th Variable
+                                                        th Value
+                                                    tr(ng-repeat="(key, value) in g.status")
+                                                        td {{key}}
+                                                        td {{value}}
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
                         .col-sm-12
                             #terminal-information.panel.panel-default
@@ -57,8 +74,13 @@ html(ng-app="device-panel")
                                         .thumbnail
                                             .caption
                                                 h3(editable-text="g.name") {{g.name}}
-                                                p this is some bs
-                                                a.btn.btn-primary signal
+                                                table.table.table-responsive.table-striped
+                                                    tr
+                                                        th Variable
+                                                        th Value
+                                                    tr(ng-repeat="(key, value) in g.status")
+                                                        td {{key}}
+                                                        td {{value}}
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
                         .col-sm-12
                             #gate-information.panel.panel-default
@@ -70,20 +92,12 @@ html(ng-app="device-panel")
                                         .thumbnail
                                             .caption
                                                 h3(editable-text="g.name") {{g.name}}
-                                                table(object-table 
-                                                    data="g.state" 
-                                                    headers="Arm" 
-                                                    fields="arm" 
-                                                    sorting="false"
-                                                    editable="false" 
-                                                    pagin=false 
-                                                    display='1')
-                                                a.btn.btn-primary signal
+                                                table.table.table-responsive.table-striped
+                                                    tr
+                                                        th Variable
+                                                        th Value
+                                                    tr(ng-repeat="(key, value) in g.status")
+                                                        td {{key}}
+                                                        td {{value}}
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
 
-                        .col-sm-12
-                            #qr-scanner-information.panel.panel-default
-                                .panel-heading
-                                    h4 QR Scanners
-                                .row
-                                    #qrScanner-container

@@ -10,17 +10,15 @@ html(ng-app="gate-device")
 
 
     script(src='/js/socket.js')
+    link(rel="stylesheet" type="text/css" href="/vendor/angular-object-table/build/object-table-style.css")
+    script(type="text/javascript" src="/vendor/angular-object-table/build/object-table.js")
     script(src='/js/directives.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    is-device(type="'gate'" state="status" update='updateState(state())')
+    is-device(state="state" saved-state="savedState")
       table.table.table-condensed.table-striped
-        tr
-          th Variable
-          th Value
-          th Actions
-        tr
-          td arm
-          td {{armState()}}
+        tr(ng-repeat="(key, value) in state.status")
+          td {{key}}
+          td {{value}}
           td 
-            button#toggle-gate(ng-click="toggleStatus()") press me to {{action(opposite(status))}}
+            button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state

@@ -12,17 +12,13 @@ html(ng-app='terminal-view')
     script(src="/js/terminal.js")
   body(ng-controller="terminalController")
     .row
-      is-device.col-sm-12(type="'terminal'", state="state")
-        table.table.table-responsive.table-striped
-          tr
-            th Variable
-            th Value
-            th Actions
-          tr
-            td qr-data
-            td "Not done"
+      is-device.col-sm-12(state="state" saved-state="savedState")
+        table.table.table-condensed.table-striped
+          tr(ng-repeat="(key, value) in state.status")
+            td {{key}}
+            td {{value}}
             td 
-              button#toggle-gate(ng-click="toggleStatus()") press me to send qr
+              button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state
       //h2 Device Name:
       //h1(ng-bind="devName")
       //h2 Device Status:

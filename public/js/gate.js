@@ -1,6 +1,17 @@
 "use strict";
 
-var app = angular.module('gate-device', ['SocketIO', 'isDirectives']);
+var app = angular.module('gate-device', ['SocketIO', 'isDirectives', 'objectTable']);
+
+
+  function createRandomName(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < length; i++ )
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
 
 function action(w) {
   switch(w) {
@@ -22,32 +33,25 @@ function opposite (s) {
   return 'closed';
 }
 
-app.controller("GateController", function ($scope, socket) {
+app.controller("GateController", function ($scope, socket, DeviceState) {
   // TODO: implement this inside the devices directive
-  $scope.status = [{
-    arm: 'closed'
-  }];
   $scope.opposite = opposite;
   $scope.action = action;
-
-  $scope.currentState = function () {
-    return $scope.status[0];
+  $scope.state = DeviceState.default('gate', {
+    arm: 'closed'
+  });
+  $scope.savedState = {
+    deviceType: null,
+    name: null,
+    status: {
+      arm: null
+    }
   }
 
+
   $scope.toggleStatus = function () {
-    $scope.status[0].arm = opposite($scope.currentState.arm);
+    $scope.state.status.arm = opposite($scope.state.status.arm);
   };
-
-
-  $scope.updateState = function (mobj) {
-    console.log('chaning to ');
-    console.log(mobj);
-    return function (pl) {
-      return _.merge(pl, mobj);
-    }
-  };
-
-  
 
 });
 
