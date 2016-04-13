@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('device-dash', ['SocketIO', 'DeviceViews', 'xeditable']);
+var app = angular.module('device-panel', ['SocketIO', 'xeditable', 'objectTable']);
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3';
@@ -16,9 +16,9 @@ function openDevFn(dev) {
   }
 };
 
-app.controller('DashController', function ($scope, socket) {
+app.controller('PanelController', function ($scope, socket) {
 
-
+  $scope.arr = function (obj) { return [obj]; };
 
   $scope.newGate = openDevFn("gate");
   $scope.newSensor = openDevFn("sensor");
@@ -55,10 +55,7 @@ app.controller('DashController', function ($scope, socket) {
     };
     _.each(pl.devices, function (dev) {
       if (out[dev.deviceType] !== undefined) {
-        out[dev.deviceType].push({
-          name: dev.name,
-          deviceType: dev.deviceType
-        });
+        out[dev.deviceType].push(dev);
       }
     });
 
@@ -67,6 +64,8 @@ app.controller('DashController', function ($scope, socket) {
         $scope[key] = value;
       }
     })
+
+    console.log(out);
   });
 
 

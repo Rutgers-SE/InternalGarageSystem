@@ -18,7 +18,7 @@
         // {{{
         $scope.name = $scope.deviceType + "-" + createRandomName(5);
         $scope.savedName = undefined;
-        socket.on('dev:name-saved', function (pl) {
+        socket.on('dev:updated', function (pl) {
           $scope.savedName = pl.name;
         });
 
@@ -36,7 +36,8 @@
         // initial setup
         socket.emit('dev:setup', {
           deviceType: $scope.deviceType,
-          name: $scope.name
+          name: $scope.name,
+          state: $scope.deviceState
         });
 
         socket.on('dev:close', function () {
@@ -53,11 +54,20 @@
         // }}}
       },
       scope: {
-        deviceType: '=type'
+        deviceType: '=type',
+        deviceState: '=state',
+        updateFn: '@update'
       },
+      transclude: true,
       template: function () {
         return `
-        <h3>{{deviceType}}</h3>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+        <h3>{{deviceType}}:{{savedName}}</h3>
+        </div>
+        <ng-transclude />
+        <div class="panel-footer">
+
         <div class="form-inline">
         <div class="form-group">
         <div class="input-group">
@@ -65,6 +75,9 @@
         <input class="form-control" ng-model="name" value="{{savedName}}" />
         </div>
         <button class="btn btn-primary" ng-click="updateName()">Update Name</button>
+        </div>
+        </div>
+
         </div>
         </div>
         `;

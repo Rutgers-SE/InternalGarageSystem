@@ -2,36 +2,52 @@
 
 var app = angular.module('gate-device', ['SocketIO', 'isDirectives']);
 
-function past(w) {
+function action(w) {
   switch(w) {
-    case 'open':
-      return w + 'ed';
+    case 'opened':
+      return 'open';
       break;
-    case 'close':
-      return w + 'd';
+    case 'closed':
+      return 'close';
       break;
     default:
-      return w + 'ed';
+      return w;
   }
 }
 
 function opposite (s) {
-  if (s === 'close') {
-    return 'open';
+  if (s === 'closed') {
+    return 'opened';
   } 
-  return 'close';
+  return 'closed';
 }
 
-app.controller("GateController", function ($scope) {
+app.controller("GateController", function ($scope, socket) {
   // TODO: implement this inside the devices directive
-
-  $scope.status = 'close';
+  $scope.status = [{
+    arm: 'closed'
+  }];
   $scope.opposite = opposite;
-  $scope.past = past;
+  $scope.action = action;
+
+  $scope.currentState = function () {
+    return $scope.status[0];
+  }
 
   $scope.toggleStatus = function () {
-    $scope.status = opposite($scope.status);
+    $scope.status[0].arm = opposite($scope.currentState.arm);
   };
+
+
+  $scope.updateState = function (mobj) {
+    console.log('chaning to ');
+    console.log(mobj);
+    return function (pl) {
+      return _.merge(pl, mobj);
+    }
+  };
+
+  
 
 });
 

@@ -13,6 +13,14 @@ html(ng-app="gate-device")
     script(src='/js/directives.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    h1#gate-status {{past(status)}}
-    button#toggle-gate(ng-click="toggleStatus()") press me to {{opposite(status)}}
-   is-device(type="'gate'")
+    is-device(type="'gate'" state="status" update='updateState(state())')
+      table.table.table-condensed.table-striped
+        tr
+          th Variable
+          th Value
+          th Actions
+        tr
+          td arm
+          td {{armState()}}
+          td 
+            button#toggle-gate(ng-click="toggleStatus()") press me to {{action(opposite(status))}}

@@ -3,6 +3,8 @@ var app = angular.module('terminal-view', ['isDirectives']);
 app.controller('terminalController', function($scope) {
   $scope.status="OFF";
   $scope.devName = "terminal";
+  $scope.state = {
+  };
 });
 
 $(function () {

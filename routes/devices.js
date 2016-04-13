@@ -8,6 +8,7 @@ _.each([
   'gate', 
   'dual-gate',
   'ramp',
+  'panel',
   'fire-works',
   'ninja',
   'pizza-guy',

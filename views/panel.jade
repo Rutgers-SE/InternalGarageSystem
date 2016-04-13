@@ -1,0 +1,89 @@
+doctype
+html(ng-app="device-panel")
+    head
+        title Device Dash
+        script(src="/socket.io/socket.io.js")
+        script(src="/vendor/jquery/dist/jquery.min.js")
+        script(src="/vendor/lodash/dist/lodash.min.js")
+        script(src="/vendor/bootstrap/dist/js/bootstrap.js")
+        link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+
+        script(src='/vendor/angular/angular.js')
+        link(href="/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet")
+        script(src="/vendor/angular-xeditable/dist/js/xeditable.js")
+        link(rel="stylesheet", href="/css/style.css")
+
+        link(rel="stylesheet" type="text/css" href="/vendor/angular-object-table/build/object-table-style.css")
+        script(type="text/javascript" src="/vendor/angular-object-table/build/object-table.js")
+
+
+        script(src="/js/socket.js")
+        script(src="/js/panel.js")
+    body(ng-controller="PanelController")
+        .container
+            .row
+                .col-md-6
+                    h3 Sequence
+                    .row
+                .col-md-6
+                    h3 Devices
+                    .row
+                        .col-sm-12
+                            #camera-information.panel.panel-default
+                                .panel-heading
+                                    h4 Cameras
+                                .row
+                                    #camera-container
+                        .col-sm-12
+                            #sensor-information.panel.panel-default
+                                .panel-heading
+                                    h4 Sensors
+                                    button(ng-click="newSensor()") new sensor
+                                .row
+                                    #sensor-container.col-md-12(ng_repeat="g in sensor")
+                                        .thumbnail
+                                            .caption
+                                                h3(editable-text="g.name") {{g.name}}
+                                                p this is some bs
+                                                a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+                        .col-sm-12
+                            #terminal-information.panel.panel-default
+                                .panel-heading
+                                    h4 Terminals
+                                    button(ng-click="newTerminal()") new terminal
+                                .row
+                                    #terminal-container.col-md-12(ng_repeat="g in terminal")
+                                        .thumbnail
+                                            .caption
+                                                h3(editable-text="g.name") {{g.name}}
+                                                p this is some bs
+                                                a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+                        .col-sm-12
+                            #gate-information.panel.panel-default
+                                .panel-heading
+                                    h4 Gates
+                                    button(ng-click="newGate()") new gate
+                                .row
+                                    #gate-container.col-sm-12(ng_repeat="g in gate")
+                                        .thumbnail
+                                            .caption
+                                                h3(editable-text="g.name") {{g.name}}
+                                                table(object-table 
+                                                    data="g.state" 
+                                                    headers="Arm" 
+                                                    fields="arm" 
+                                                    sorting="false"
+                                                    editable="false" 
+                                                    pagin=false 
+                                                    display='1')
+                                                a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+
+                        .col-sm-12
+                            #qr-scanner-information.panel.panel-default
+                                .panel-heading
+                                    h4 QR Scanners
+                                .row
+                                    #qrScanner-container
