@@ -1,9 +1,9 @@
+"use strict";
 
 var app = angular.module('gate-device', ['SocketIO']);
 
 app.controller("GateController", function ($scope, socket) {
   $scope.open = function () {
-    console.log("should do something");
   };
 
   $scope.close = function () {
@@ -20,7 +20,6 @@ app.controller("GateController", function ($scope, socket) {
 
 
   socket.on('dev:registered', function (payload) {
-    console.log("awesome")
     if (payload.deviceName === $scope.name) {
       $scope.registrationStatus = "registered!";
     } 

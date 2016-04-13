@@ -19,8 +19,14 @@ var spaceManOne = new SpaceManager(200);
 require('./routes/middleware')(app);
 require('./routes')(app);
 
+
+
+// I want this porition to be in a separate file
+
 var doc = new DeviceOrchestrator({io});
 
+
+// wondering if this should fall into a sequence
 doc.on('dev:register', function (payload) {
   console.log(payload.name);
   doc.emit('dev:notify', {
@@ -31,6 +37,7 @@ doc.on('dev:register', function (payload) {
     }
   })
 });
+
 
 // This should be the entrance sequence
 doc.defineSequence('entrance')
