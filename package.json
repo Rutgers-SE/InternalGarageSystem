@@ -4,6 +4,7 @@
   "description": "Provides the interface between the physical devices and there locations in the garage... etc",
   "main": "index.js",
   "scripts": {
+    "start": "node --harmony_destructuring index",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --harmony_destructuring index",
     "prod": "node --harmony_destructuring index"
