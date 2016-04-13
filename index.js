@@ -25,50 +25,44 @@ require('./routes')(app);
 
 var doc = new DeviceOrchestrator({io});
 
-// organizing the sockets into a map
-var deviceMap = {
-  panel: [], // we don't care about all the panels. (for now)
-  gate: {},
-  sensor: {},
-  terminal: {}
-};
+// storing all of the devices in the system
+var devices = [];
 
-// TODO: move this to a proper location
-function serializeDeviceMap(dm) {
-  return _.map(dm, function (value, key) {
-    
-    return _.map(dm[key], function (v, k) {
-      return k;
-    });
+
+function serializeDevices(lst) {
+  return _.map(lst, function ({name, deviceType}) {
+    return {name, deviceType};
   });
 }
 
 function updatePanel() {
-  _.each(deviceMap.panel, function (s) {
-    s.emit('panel:update-devices', serializeDeviceMap(deviceMap));
+  _.each(devices, function ({deviceType, socket}) {
+    var sd = serializeDevices(devices)
+    if(deviceType === 'panel') 
+      socket.emit('panel:update-devices', {devices: sd});
   });
 }
 
 doc.on('panel:setup', function (payload) {
   var socket = this;
-  // here we should setup the panel that displays the current state of the deviceMap
-  deviceMap.panel.push(socket);
-  socket.emit('panel:alert', serializeDeviceMap(deviceMap));
+
+  devices.push({
+    deviceType: 'panel',
+    name: 'panel',
+    socket
+  });
+
+  updatePanel();
 });
 
 // wondering if this should fall into a sequence
-doc.on('dev:setup', function (payload) {
+doc.on('dev:setup', function ({deviceType, name}) {
   var socket = this;
-  deviceMap[payload.deviceType][payload.name] = socket;
-
-  socket.emit('dev:name-saved', {
-    name: payload.name
-  });
-
-
-  console.log("Registed a device");
-
-  // Notify all of the panels that are apart of the system.
+  var dob = {deviceType, name};
+  dob.socket = socket;
+  devices.push(dob)
+  socket.emit('dev:name-saved', {name});
+  
   updatePanel();
 });
 
@@ -76,11 +70,14 @@ doc.on('dev:rename', function ({newName, oldName, deviceType}) {
   var socket = this;
   
   // TODO: add error handling
-  var tmp = deviceMap[deviceType][oldName];
-  deviceMap[deviceType][newName] = tmp;
-  delete deviceMap[deviceType][oldName];
+  devices = _.map(devices, function (obj) {
+    if (obj.name === oldName &&
+        obj.deviceType === deviceType) obj.name = newName;
+      return obj;
+  });
 
   socket.emit('dev:name-saved', {name: newName});
+
   updatePanel();
 });
 
