@@ -31,7 +31,12 @@ html(ng-app="device-dash")
                                 .panel-heading
                                     h4 Sensors
                                 .row
-                                    #sensor-container
+                                    #sensor-container.col-md-12(ng_repeat="g in sensor")
+                                        .thumbnail
+                                            .caption
+                                                h3 {{g.name}}
+                                                p this is some bs
+                                                a.btn.btn-primary signal
                         .col-sm-12
                             #terminal-information.panel.panel-default
                                 .panel-heading
@@ -44,7 +49,6 @@ html(ng-app="device-dash")
                                     h4 Gates
                                 .row
                                     #gate-container.col-md-12(ng_repeat="g in gate")
-
                                         .thumbnail
                                             .caption
                                                 h3 {{g.name}}

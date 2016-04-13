@@ -1,4 +1,4 @@
-var app = angular.module('sensor-view', []);
+var app = angular.module('sensor-view', ['isDirectives']);
 
 app.controller('SensorController', function ($scope) {
   $scope.stateText = "Switch to HI";
@@ -15,32 +15,32 @@ app.controller('SensorController', function ($scope) {
   };
 });
 
-var socket = io.connection();
-socket.emit("device:register",{
-  name:$scope.name,
-  devType:"Sensor"
-});
-socket.on("device:register", function(payload){
+//var socket = io.connection();
+//socket.emit("device:register",{
+  //name:$scope.name,
+  //devType:"Sensor"
+//});
+//socket.on("device:register", function(payload){
     
-});
+//});
   
 
-$(function () {
-  var socket = io.connect('http://localhost:8080');
-   $('#sensed').click(function () {
-      socket.emit('dev:trigger', {
-        'name': 'entrance-pre-term-sensor',
-        'meta': {
-          'status': true
-        },
-      }) 
-   });
+//$(function () {
+  //var socket = io.connect('http://localhost:8080');
+   //$('#sensed').click(function () {
+      //socket.emit('dev:trigger', {
+        //'name': 'entrance-pre-term-sensor',
+        //'meta': {
+          //'status': true
+        //},
+      //}) 
+   //});
 
-   $("#sensed").mousedown(function () {
-     console.log("This should only happen once");
-   });
+   //$("#sensed").mousedown(function () {
+     //console.log("This should only happen once");
+   //});
 
-   socket.on("dev:command", function (data) {
-     console.log(data);
-   });
-});
+   //socket.on("dev:command", function (data) {
+     //console.log(data);
+   //});
+//});

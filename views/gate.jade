@@ -15,15 +15,4 @@ html(ng-app="gate-device")
   body(ng-controller="GateController")
     h1#gate-status {{past(status)}}
     button#toggle-gate(ng-click="toggleStatus()") press me to {{opposite(status)}}
-    br
-    .form-inline
-      .form-group
-        .input-group
-          .input-group-addon {{nameSaveState()}}
-          input.form-control(ng_model="name", value="{{savedName}}")
-        button.btn.btn-primary(ng_click="updateName()") Rename
-
-    br
-    br
-    br
-    is-device(type="'gate'")
+   is-device(type="'gate'")
