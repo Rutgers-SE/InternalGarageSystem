@@ -41,9 +41,9 @@ app.controller("GateController", function ($scope, socket) {
 
   $scope.nameSaveState = function () {
     if ($scope.savedName === $scope.name ) {
-      return "ok";
+      return "saved";
     }
-    return "remove"
+    return   "not saved"
   };
 
   $scope.toggleStatus = function () {

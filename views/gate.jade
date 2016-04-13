@@ -6,7 +6,7 @@ html(ng-app="gate-device")
     script(src="/vendor/jquery/dist/jquery.min.js")
     script(src="/vendor/angular/angular.js")
     script(src="/vendor/bootstrap/dist/js/bootstrap.js")
-    link(href="/vendor/bootstrap/dist/css/bootstrap.css")
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
     script(src='/js/socket.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
@@ -14,8 +14,9 @@ html(ng-app="gate-device")
     button#toggle-gate(ng-click="toggleStatus()") press me to {{opposite(status)}}
     br
     br
-    //p The name that is in the system: {{savedName}}
-    .form-group
-      span(class="glyphicon glyphicon-{{nameSaveState()}}", aria-hidden="true")
-      input.form-control(ng_model="name", value="{{savedName}}")
-      button(ng_click="updateName()") Rename
+    .form-inline
+      .form-group
+        .input-group
+          .input-group-addon {{nameSaveState()}}
+          input.form-control(ng_model="name", value="{{savedName}}")
+        button.btn.btn-primary(ng_click="updateName()") Rename
