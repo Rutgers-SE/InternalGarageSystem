@@ -1,11 +1,17 @@
-var app = angular.module('terminal-view', ['isDirectives']);
+var app = angular.module('terminal-view', ['isDirectives', 'SocketIO']);
 
-app.controller('terminalController', function($scope, DeviceState) {
+app.controller('terminalController', function($scope, socket, DeviceState) {
   //$scope.status="OFF";
   //$scope.devName = "terminal";
   $scope.state = DeviceState.default('terminal', {
   });
   $scope.savedState = DeviceState.empty();
+
+
+  socket.on('dev:command', function (){
+    alert("this was called");
+  })
+
 });
 
 //$(function () {

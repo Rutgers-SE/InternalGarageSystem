@@ -61,6 +61,10 @@
           });
         };
 
+        $scope.deviceTrigger = function () {
+          socket.emit('dev:trigger', $scope.state);
+        }
+
         socket.on('dev:updated', function (updatedDeviceObject) {
           console.log("Updated Object", updatedDeviceObject);
           _.merge($scope.savedState, updatedDeviceObject);
@@ -111,7 +115,8 @@
 
 
         </div>
-        <button class="btn btn-primary" ng-click="updateState()">update state</button>
+        <button class="btn btn-default" ng-click="updateState()">update state</button>
+        <button class="btn btn-primary" ng-click="deviceTrigger()">trigger event</button>
         </div>
 
         </div>
