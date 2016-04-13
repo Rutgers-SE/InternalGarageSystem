@@ -7,7 +7,10 @@ html(ng-app="gate-device")
     script(src="/vendor/angular/angular.js")
     script(src="/vendor/bootstrap/dist/js/bootstrap.js")
     link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
+
+
     script(src='/js/socket.js')
+    script(src='/js/directives.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
     h1#gate-status {{past(status)}}
@@ -19,3 +22,8 @@ html(ng-app="gate-device")
           .input-group-addon {{nameSaveState()}}
           input.form-control(ng_model="name", value="{{savedName}}")
         button.btn.btn-primary(ng_click="updateName()") Rename
+
+    br
+    br
+    br
+    is-device(type="'gate'")
