@@ -64,6 +64,8 @@ function updatePanel() {
   });
 }
 
+doc.on('disconnect', updatePanel);
+
 doc.on('panel:setup', function (payload) {
   var socket = this;
 
