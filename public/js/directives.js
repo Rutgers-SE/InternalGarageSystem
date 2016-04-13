@@ -42,7 +42,7 @@
           console.log("Current ", $scope.state );
           console.log("Saved ", $scope.savedState);
           if (_.isEqual($scope.state, $scope.savedState)) return {
-            text: 'synced',
+            text: 'fresh',
             className: 'success'
           };
 
