@@ -43,11 +43,11 @@ html(ng-app="device-dash")
                                 .panel-heading
                                     h4 Gates
                                 .row
-                                    #gate-container.col-md-3(ng_repeat="g in gate")
+                                    #gate-container.col-md-12(ng_repeat="g in gate")
 
                                         .thumbnail
                                             .caption
-                                                h3 {{g}}
+                                                h3 {{g.name}}
                                                 p this is some bs
                                                 a.btn.btn-primary signal
 

@@ -30,12 +30,19 @@ var devices = [];
 
 
 function serializeDevices(lst) {
-  return _.map(lst, function ({name, deviceType}) {
-    return {name, deviceType};
+  return _.map(lst, function ({name, deviceType, socket}) {
+    return {name, deviceType, socket: socket.connected};
+  });
+}
+
+function cleanDevices() {
+  devices = _.filter(devices, function ({socket}) {
+    return socket.connected;
   });
 }
 
 function updatePanel() {
+  cleanDevices();
   _.each(devices, function ({deviceType, socket}) {
     var sd = serializeDevices(devices)
     if(deviceType === 'panel') 

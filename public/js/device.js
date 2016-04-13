@@ -20,7 +20,23 @@ app.controller('DashController', function ($scope, socket) {
   })
 
   socket.on('panel:update-devices', function (pl) {
-    console.info(pl);
+    var out = {
+      gate: [],
+      sensor: [],
+      terminal: [],
+      camera: []
+    };
+    _.each(pl.devices, function (dev) {
+      if (out[dev.deviceType] !== undefined) {
+        out[dev.deviceType].push({name: dev.name});
+      }
+    });
+
+    _.each(out, function (value, key) {
+      if (key in $scope) {
+        $scope[key] = value;
+      }
+    })
   });
 
 
