@@ -11,10 +11,9 @@ html(ng-app="gate-device")
     script(src="/js/gate.js")
   body(ng-controller="GateController")
     h2#gate-status {{status}}
+    h5 The name that is in the system: {{savedName}}
     input(ng_model="name")
-    button(ng_click="register()") Register
+    button(ng_click="updateName()") Rename
     br
-    br
-    h4 {{registrationStatus}}
     button#open-gate(ng_click="open()") open
     button#close-gate(ng_click="close()") close

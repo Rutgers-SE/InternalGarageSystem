@@ -6,14 +6,23 @@ app.controller('DashController', function ($scope, socket) {
 
   $scope.devices = {};
   $scope.gate = [];
+  $scope.sensor = [];
+  $scope.terminal = [];
+  
+  socket.emit('panel:setup', {
+  });
 
-  socket.on('dev:notify', function (pl) {
-    // do some device view things
-    $scope[pl.meta.deviceType].push(pl.meta.deviceName);
-    
-    socket.emit('dev:registered', {
-      deviceName: pl.meta.deviceName
-    });
+  socket.on('panel:alert', function (devState) {
+    console.log(devState);
+  });
+
+  // just here to check if something good happened
+  socket.on('panel:test', function () {
+    console.info("This is a test");
+  })
+
+  socket.on('panel:update-devices', function (pl) {
+    console.info(pl);
   });
 });
 
