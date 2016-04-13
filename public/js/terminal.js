@@ -1,9 +1,9 @@
-var app = angular.module('terminal-view', []);
+var app = angular.module('terminal-view', ['isDirectives']);
 
 app.controller('terminalController', function($scope) {
   $scope.status="OFF";
   $scope.devName = "terminal";
-};
+});
 
 $(function () {
   var socket = io.connect('http://localhost:8080');
@@ -13,7 +13,6 @@ $(function () {
       'name': 'entrance-terminal-qr'
     }) 
   });
-
 
   $("#sensed").mousedown(function () {
     console.log("This should only happen once");

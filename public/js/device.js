@@ -22,6 +22,7 @@ app.controller('DashController', function ($scope, socket) {
 
   $scope.newGate = openDevFn("gate");
   $scope.newSensor = openDevFn("sensor");
+  $scope.newTerminal = openDevFn("terminal");
 
   $scope.devices = {};
   $scope.gate = [];

@@ -45,18 +45,25 @@ html(ng-app="device-dash")
                             #terminal-information.panel.panel-default
                                 .panel-heading
                                     h4 Terminals
+                                    button(ng-click="newTerminal()") new terminal
                                 .row
-                                    #terminal-container
+                                    #terminal-container.col-md-12(ng_repeat="g in terminal")
+                                        .thumbnail
+                                            .caption
+                                                h3(editable-text="g.name") {{g.name}}
+                                                p this is some bs
+                                                a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
                         .col-sm-12
                             #gate-information.panel.panel-default
                                 .panel-heading
                                     h4 Gates
                                     button(ng-click="newGate()") new gate
                                 .row
-                                    #gate-container.col-md-12(ng_repeat="g in gate")
+                                    #gate-container.col-sm-13.col-md-4(ng_repeat="g in gate")
                                         .thumbnail
                                             .caption
-                                                h3 {{g.name}}
+                                                h3(editable-text="g.name") {{g.name}}
                                                 p this is some bs
                                                 a.btn.btn-primary signal
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x

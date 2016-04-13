@@ -5,15 +5,17 @@ html(ng-app='sensor-view')
     script(src="/vendor/jquery/dist/jquery.min.js")
     script(src="/vendor/lodash/dist/lodash.min.js")
     script(src='/vendor/angular/angular.js')
+    script(src="/vendor/bootstrap/dist/js/bootstrap.js")
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
     script(src='/js/socket.js')
     script(src='/js/directives.js')
     script(src="/js/sensor.js")
   body(ng-controller="SensorController")
     //button#sensed Sense
-    h2 Device Name:
-    h1(ng-bind="devName")
-    h2 Device Status: 
-    h1(ng-bind="pageStatus") Status 
-    input(type="text", ng-model="devName", placeholder="Device Name")
-    button(ng-click="toggleSignal()") {{stateText}}
+    //h2 Device Name:
+    //h1(ng-bind="devName")
+    //h2 Device Status: 
+    //h1(ng-bind="pageStatus") Status 
+    //input(type="text", ng-model="devName", placeholder="Device Name")
+    //button(ng-click="toggleSignal()") {{stateText}}
     is-device(type="'sensor'")
