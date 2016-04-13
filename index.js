@@ -40,14 +40,16 @@ require('./routes')(app);
 var doc = new DeviceOrchestrator({io});
 
 // attaching unary device events
-require('./lib/events')(doc);
+var devices = require('./lib/events')(doc);
 
 // TODO: might move this to `lib/event/index`
 // TODO: reflect the real entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
-    {'name': 'pre-entrance-sensor', 'value': true}, 
-    {'name': 'entrance-terminal', 'command': 'display!'}
+    {'name': 'pre-entrance-sensor', 'status': {'signal': 'HI'}}, 
+    {'name': 'entrance-terminal', 'status': {
+      'command': 'display!'
+    }}
   )])
   .addRelay([new Relay(
     {'name': 'entrance-terminal', 'qr-data': ''}, 
@@ -71,7 +73,7 @@ doc.defineSequence('entrance')
   )]);
 
 
-doc.listen([
+doc.listen(devices,[
   'entrance',
   'parking',
   'exit'

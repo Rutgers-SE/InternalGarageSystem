@@ -1,6 +1,6 @@
 "use strict";
 
-var app = angular.module('device-panel', ['SocketIO', 'xeditable']);
+var app = angular.module('device-panel', ['SocketIO', 'xeditable', 'ngSanitize']);
 
 app.run(function (editableOptions) {
   editableOptions.theme = 'bs3';
@@ -16,7 +16,7 @@ function openDevFn(dev) {
   }
 };
 
-app.controller('PanelController', function ($scope, socket) {
+app.controller('PanelController', function ($scope, socket, $sce) {
 
   $scope.arr = function (obj) { return [obj]; };
 
@@ -30,6 +30,11 @@ app.controller('PanelController', function ($scope, socket) {
   $scope.sensor = [];
   $scope.terminal = [];
   $scope.camera = [];
+
+  $scope.ch = 0;
+  $scope.currentHead = function (chain) {
+    return [];
+  };
   
   $scope.closeDevice = function (name, dType) {
     console.log("Closing Dev:(" + name + ":" + dType + ")");
@@ -70,6 +75,24 @@ app.controller('PanelController', function ($scope, socket) {
     console.log(out);
   });
 
+
+  $scope.headNode = function (i1, i2) {
+    console.log(i1, i2);
+    if (i1 === i2) {
+      return {
+        classString: "label label-info",
+        text: "head"
+      }
+
+    }
+    else {};
+  }
+
+  // recieve the sequence object
+  socket.on('panel:oc-update', function (doc) {
+    window.doc = doc;
+    $scope.sequences = doc;
+  });
 
   socket.emit('panel:setup');
 });

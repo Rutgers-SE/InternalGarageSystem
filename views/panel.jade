@@ -9,6 +9,7 @@ html(ng-app="device-panel")
         link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
 
         script(src='/vendor/angular/angular.js')
+        script(src='/vendor/angular-sanitize/angular-sanitize.js')
         link(href="/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet")
         script(src="/vendor/angular-xeditable/dist/js/xeditable.js")
         link(rel="stylesheet", href="/css/style.css")
@@ -19,8 +20,31 @@ html(ng-app="device-panel")
         .container
             .row
                 .col-md-6
-                    h3 Sequence
-                    .row
+                    h3 Sequences
+                    .seq(ng-repeat="(name, seqobj) in sequences")
+                        h4 {{name}}
+                        .well.link.row(ng-repeat="r in seqobj.chain[seqobj.head]")
+                            .relay.well.col-sm-6()
+                                .panel.panel-default
+                                    .panel-heading
+                                        span.label.label-info incoming
+                                    table.table.table-responsive
+                                        tr(ng-repeat="(key, value) in r.incoming")
+                                            td {{key}}
+                                            td {{value}}
+                                .panel.panel-default
+                                    .panel-heading
+                                        span.label.label-info outgoing
+                                    table.table.table-responsive
+                                        tr(ng-repeat="(key, value) in r.outgoing")
+                                            td {{key}}
+                                            td {{value}}
+                            .relay.well.col-sm-6()
+                                ul
+                                    li(ng-repeat="msg in eventMessages") {{msg}}
+                                        
+
+
                 .col-md-6
                     h3 Devices
                     .row
@@ -33,7 +57,7 @@ html(ng-app="device-panel")
                                     #camera-container.col-md-12(ng_repeat="g in camera")
                                         .thumbnail
                                             .caption
-                                                h3(editable-text="g.name") {{g.name}}
+                                                h5(editable-text="g.name") {{g.name}}
                                                 table.table.table-responsive.table-striped
                                                     tr
                                                         th Variable
@@ -51,7 +75,7 @@ html(ng-app="device-panel")
                                     #sensor-container.col-md-12(ng_repeat="g in sensor")
                                         .thumbnail
                                             .caption
-                                                h3(editable-text="g.name") {{g.name}}
+                                                h5(editable-text="g.name") {{g.name}}
                                                 table.table.table-responsive.table-striped
                                                     tr
                                                         th Variable
@@ -69,7 +93,7 @@ html(ng-app="device-panel")
                                     #terminal-container.col-md-12(ng_repeat="g in terminal")
                                         .thumbnail
                                             .caption
-                                                h3(editable-text="g.name") {{g.name}}
+                                                h5(editable-text="g.name") {{g.name}}
                                                 table.table.table-responsive.table-striped
                                                     tr
                                                         th Variable
@@ -87,7 +111,7 @@ html(ng-app="device-panel")
                                     #gate-container.col-sm-12(ng_repeat="g in gate")
                                         .thumbnail
                                             .caption
-                                                h3(editable-text="g.name") {{g.name}}
+                                                h5(editable-text="g.name") {{g.name}}
                                                 table.table.table-responsive.table-striped
                                                     tr
                                                         th Variable

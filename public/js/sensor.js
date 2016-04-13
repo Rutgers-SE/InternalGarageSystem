@@ -14,20 +14,24 @@ function action(w) {
 }
 
 function opposite (s) {
-  if (s === 'closed') {
-    return 'opened';
+  if (s === 'LOW') {
+    return 'HI';
   } 
-  return 'closed';
+  return 'LOW';
 }
 
 app.controller('SensorController', function ($scope, DeviceState) {
 
   $scope.state = DeviceState.default('sensor', {
-    signal: 'low'
+    signal: 'LOW'
   });
   $scope.savedState = DeviceState.empty({
     signal: null
   });
+
+  $scope.toggleState = function () { 
+    $scope.state.status.signal = opposite($scope.state.status.signal);
+  };
 
   $scope.stateText = "Switch to HI";
   $scope.pageStatus = "LO";
