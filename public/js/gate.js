@@ -68,7 +68,6 @@ app.controller("GateController", function ($scope, socket) {
     });
   };
 
-
   // initial setup
   socket.emit('dev:setup', {
     deviceType: 'gate',

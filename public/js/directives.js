@@ -26,7 +26,6 @@
         <button class="btn btn-primary" ng-click="updateName()">Update Name</button>
         </div>
         </div>
-
         `;
       }
     };
