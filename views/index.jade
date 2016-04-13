@@ -6,6 +6,8 @@ html(ng-app="device-dash")
         script(src="/vendor/lodash/dist/lodash.min.js")
         link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
         script(src='/vendor/angular/angular.js')
+        link(href="/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet")
+        script(src="/vendor/angular-xeditable/dist/js/xeditable.js")
         link(rel="stylesheet", href="/css/style.css")
 
         script(src="/js/deviceviews.js")
@@ -35,7 +37,7 @@ html(ng-app="device-dash")
                                     #sensor-container.col-md-12(ng_repeat="g in sensor")
                                         .thumbnail
                                             .caption
-                                                h3 {{g.name}}
+                                                h3(editable-text="g.name") {{g.name}}
                                                 p this is some bs
                                                 a.btn.btn-primary signal
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
@@ -57,6 +59,7 @@ html(ng-app="device-dash")
                                                 h3 {{g.name}}
                                                 p this is some bs
                                                 a.btn.btn-primary signal
+                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
 
                         .col-sm-12
                             #qr-scanner-information.panel.panel-default

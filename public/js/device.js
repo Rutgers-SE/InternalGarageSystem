@@ -1,6 +1,10 @@
 "use strict";
 
-var app = angular.module('device-dash', ['SocketIO', 'DeviceViews']);
+var app = angular.module('device-dash', ['SocketIO', 'DeviceViews', 'xeditable']);
+
+app.run(function (editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 function openDevFn(dev) {
   return function () {
