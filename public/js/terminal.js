@@ -1,3 +1,10 @@
+var app = angular.module('terminal-view', []);
+
+app.controller('terminalController', function($scope) {
+  $scope.status="OFF";
+  $scope.devName = "terminal";
+};
+
 $(function () {
   var socket = io.connect('http://localhost:8080');
   $('#qr').click(function () {

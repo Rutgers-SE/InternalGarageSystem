@@ -1,10 +1,17 @@
-html
+html(ng-app='terminal-view')
   head
     title Ted the terminal
     script(src="/socket.io/socket.io.js")
     script(src="/vendor/jquery/dist/jquery.min.js")
     script(src="/vendor/lodash/dist/lodash.min.js")
+    script(src='/vendor/angular/angular.js')
     script(src="/js/terminal.js")
-  body
+  body(ng-controller="terminalController")
+    h2 Device Name:
+    h1(ng-bind="devName")
+    h2 Device Status:
+    h1(ng-bind="status")
+    input(type="text", ng-model="devName", placeholder="Device Name")
     button#walkin Walkin
     button#qr Reservation
+    button#power Power
