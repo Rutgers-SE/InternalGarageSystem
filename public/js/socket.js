@@ -4,7 +4,7 @@
   var fact = angular.module('SocketIO', []);
 
   fact.factory('socket', function ($rootScope) {
-    var socket = io.connect('http://localhost:8080', {secure: true});
+    var socket = io.connect('/', {secure: true});
     return {
       on: function (eventName, callback) {
         socket.on(eventName, function () {
