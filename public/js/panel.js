@@ -35,6 +35,14 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   $scope.currentHead = function (chain) {
     return [];
   };
+
+  $scope.resetHead = function (name) {
+    if (name !== undefined) {
+    socket.emit('doc:reset-head', {sequenceName: name});
+    }
+    socket.emit('doc:reset-head');
+  };
+
   
   $scope.closeDevice = function (name, dType) {
     console.log("Closing Dev:(" + name + ":" + dType + ")");
