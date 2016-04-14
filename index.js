@@ -70,6 +70,13 @@ doc.defineSequence('entrance')
     {}
   )]);
 
+// PRIORITY: 1
+//doc.defineSequence('parking')
+  //.addRelay([new Relay(
+    //{'name': 'pre-entrance-sensor', 'status': {'signal':'HI'}}, 
+    //{'name': 'entrance-terminal', 'actions': {'command': 'display!'}}
+  //)])
+
 
 doc.listen({devices, ev},[
   'entrance',
