@@ -15,6 +15,9 @@
   angular.module('isDirectives', ['SocketIO'])
   .factory('DeviceState', function () {
     return {
+      payloadMatch: (state, pl) => {
+        return state.name === pl.name;
+      },
       default: function (deviceType, status) {
         return {
           deviceType: deviceType,
