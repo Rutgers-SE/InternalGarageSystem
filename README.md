@@ -22,6 +22,12 @@ When connecting a device (html view) to the event system, you must vist the path
 
 ### Event Sequence Speicification
 
+#### Server
+
+On the server-side of the application, we do not directive interface with the Socket.IO api. It is done so using the API that the DeviceOrchestrator exposes. Doing this allowed us to hide the complexity of composing events in a 
+
+#### Client Side
+
 
 
 
