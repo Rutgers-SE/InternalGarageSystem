@@ -40,7 +40,7 @@ require('./routes')(app);
 var doc = new DeviceOrchestrator({io});
 
 // attaching unary device events
-var devices = require('./lib/events')(doc);
+var {devices, ev} = require('./lib/events')(doc);
 
 // TODO: might move this to `lib/event/index`
 // TODO: reflect the real entrance sequence
@@ -51,27 +51,34 @@ doc.defineSequence('entrance')
   )])
   .addRelay([new Relay(
     {'name': 'entrance-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
-    {'name': 'entrance-gate', 'command': 'open!'}
+    {'name': 'entrance-gate', 'actions': {'command': 'open!'}}
   )])
   .addRelay([new Relay(
     {'name': 'entrance-gate', 'status': {'arm': 'opened'}},
     {}
   )])
   .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'value': true},
+    {'name': 'post-entrance-sensor', 'status': {'signal': 'HI'}},
     {}
   )])
   .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'value': false},
-    {'name': 'entrance-gate', 'command': 'close!'}
+    {'name': 'post-entrance-sensor', 'status': {'signal': 'LOW'}},
+    {'name': 'entrance-gate', 'actions': {'command': 'close!'}}
   )])
   .addRelay([new Relay(
-    {'name': 'entrance-gate', 'status': 'closed'},
+    {'name': 'entrance-gate', 'status': {'arm': 'closed'}},
     {}
   )]);
 
+// PRIORITY: 1
+//doc.defineSequence('parking')
+  //.addRelay([new Relay(
+    //{'name': 'pre-entrance-sensor', 'status': {'signal':'HI'}}, 
+    //{'name': 'entrance-terminal', 'actions': {'command': 'display!'}}
+  //)])
 
-doc.listen(devices,[
+
+doc.listen({devices, ev},[
   'entrance',
   'parking',
   'exit'

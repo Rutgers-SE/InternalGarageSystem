@@ -30,6 +30,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   $scope.sensor = [];
   $scope.terminal = [];
   $scope.camera = [];
+  $scope.events = []
 
   $scope.ch = 0;
   $scope.currentHead = function (chain) {
@@ -100,6 +101,11 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   socket.on('panel:oc-update', function (doc) {
     window.doc = doc;
     $scope.sequences = doc;
+  });
+
+  socket.on('panel:event-log', function (pl) {
+    console.log(pl);
+    $scope.events = pl;
   });
 
   socket.emit('panel:setup');
