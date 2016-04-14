@@ -12,20 +12,22 @@ app.controller('terminalController', function($scope, socket, DeviceState) {
 
   function showBootMessage() {
     // alert some bull here
-    alert("Booting the message");
+    socket.emit('dev:trigger', $scope.savedState);
   }
 
   socket.on('dev:command', function (payload) {
-    if (DeviceState.payloadMatch($scope.savedState.name, payload)) {
+    console.log(payload)
+    if (DeviceState.payloadMatch($scope.savedState, payload)) {
 
-      switch(payload.status.command) {
-        case 'display':
+      console.log("Incoming payload", payload);
+
+      switch(payload.actions.command) {
+        case 'display!':
           showBootMessage();
           break;
         default:
           improperCommand();
       }
-
     }
   });
 

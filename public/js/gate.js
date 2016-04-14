@@ -53,5 +53,25 @@ app.controller("GateController", function ($scope, socket, DeviceState) {
     $scope.state.status.arm = opposite($scope.state.status.arm);
   };
 
+  function handleCommand() {
+    socket.emit('dev:trigger', $scope.savedState);
+  }
+
+  socket.on('dev:command', function (payload) {
+    console.log(payload)
+    if (DeviceState.payloadMatch($scope.savedState, payload)) {
+
+      console.log("Incoming payload", payload);
+
+      switch(payload.actions.command) {
+        case 'open!':
+          handleCommand();
+          break;
+        default:
+          improperCommand();
+      }
+    }
+  });
+
 });
 

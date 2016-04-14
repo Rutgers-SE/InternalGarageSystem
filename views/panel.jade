@@ -2,6 +2,8 @@ doctype
 html(ng-app="device-panel")
     head
         title Device Dash
+
+        meta(name="viewport" content="width=device-width, initial-scale=1")
         script(src="/socket.io/socket.io.js")
         script(src="/vendor/jquery/dist/jquery.min.js")
         script(src="/vendor/lodash/dist/lodash.min.js")
@@ -45,7 +47,7 @@ html(ng-app="device-panel")
                                             td {{value}}
                             .relay.well.col-sm-6()
                                 ul
-                                    li(ng-repeat="msg in eventMessages") {{msg}}
+                                    li(ng-repeat="msg in events") {{msg}}
                                         
 
 

@@ -40,7 +40,7 @@ require('./routes')(app);
 var doc = new DeviceOrchestrator({io});
 
 // attaching unary device events
-var devices = require('./lib/events')(doc);
+var {devices, ev} = require('./lib/events')(doc);
 
 // TODO: might move this to `lib/event/index`
 // TODO: reflect the real entrance sequence
@@ -71,7 +71,7 @@ doc.defineSequence('entrance')
   )]);
 
 
-doc.listen(devices,[
+doc.listen({devices, ev},[
   'entrance',
   'parking',
   'exit'
