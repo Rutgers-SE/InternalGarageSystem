@@ -51,22 +51,22 @@ doc.defineSequence('entrance')
   )])
   .addRelay([new Relay(
     {'name': 'entrance-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
-    {'name': 'entrance-gate', 'command': 'open!'}
+    {'name': 'entrance-gate', 'actions': {'command': 'open!'}}
   )])
   .addRelay([new Relay(
     {'name': 'entrance-gate', 'status': {'arm': 'opened'}},
     {}
   )])
   .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'value': true},
+    {'name': 'post-entrance-sensor', 'status': {'signal': 'HI'}},
     {}
   )])
   .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'value': false},
-    {'name': 'entrance-gate', 'command': 'close!'}
+    {'name': 'post-entrance-sensor', 'status': {'signal': 'LOW'}},
+    {'name': 'entrance-gate', 'actions': {'command': 'close!'}}
   )])
   .addRelay([new Relay(
-    {'name': 'entrance-gate', 'status': 'closed'},
+    {'name': 'entrance-gate', 'status': {'arm': 'closed'}},
     {}
   )]);
 
