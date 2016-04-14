@@ -46,17 +46,15 @@ var devices = require('./lib/events')(doc);
 // TODO: reflect the real entrance sequence
 doc.defineSequence('entrance')
   .addRelay([new Relay(
-    {'name': 'pre-entrance-sensor'}, 
-    {'name': 'entrance-terminal', 'status': {
-      'command': 'display!'
-    }}
+    {'name': 'pre-entrance-sensor', 'status': {'signal':'RAW'}}, 
+    {'name': 'entrance-terminal', 'status': {'command': 'display!'}}
   )])
   .addRelay([new Relay(
-    {'name': 'entrance-terminal'}, 
+    {'name': 'entrance-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
     {'name': 'entrance-gate', 'command': 'open!'}
   )])
   .addRelay([new Relay(
-    {'name': 'entrance-gate', 'status': 'opened'},
+    {'name': 'entrance-gate', 'status': {'arm': 'opened'}},
     {}
   )])
   .addRelay([new Relay(
