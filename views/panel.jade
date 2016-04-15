@@ -37,9 +37,9 @@ html(ng-app="device-panel")
                                  bt
                                  h3 {{inspirationalMessage}}
                                  div(class="progress")
-                                     div.progress-bar-success(class="progress-bar", role="progress-bar", aria-valuenow="70", aria-valuemin="0", aria-valuemax="100", style="width:70%")
-                                         span(class="sr-only") 50% Complete
-                                         // span(class="sr-only) {{percentageFun}}% Complete
+                                     div.progress-bar-success(class="progress-bar", role="progress-bar", aria-valuenow="10", aria-valuemin="0", aria-valuemax="100", style="width:70%")
+                                         //span(class="sr-only") 50% Complete
+                                         span(class="sr-only") {{percentageFun()}}% Complete
   
 
                                 button.btn.btn-primary(ng-click="resetHead(name)") reset {{name}}

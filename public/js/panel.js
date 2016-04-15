@@ -113,5 +113,9 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   //});
 
   socket.emit('panel:setup');
+  $scope.percentageFun = function() {
+    return seqobj.head/seqobj.chain.length;        
+    
+  }
 });
 

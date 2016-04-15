@@ -87,6 +87,7 @@
           }
           return   "not saved"
         };
+        // }}}
       },
       scope: {
         state: '=state',
@@ -98,8 +99,7 @@
         <div class="panel panel-default">
 
         <div class="panel-heading">
-        <h3>{{savedState.name}} <span class="label label-{{saveObject().className}}">{{saveObject().text}}</span></h3>
-        <h5>{{state.deviceType}}</h5>
+        <h3>{{state.deviceType}}:{{savedState.name}} <span class="label label-{{saveObject().className}}">{{saveObject().text}}</span></h3>
         </div>
 
         <ng-transclude />
@@ -131,8 +131,3 @@
 }());
 
 
-// Sajeel.io NOTES:
-//
-// sequence.relays
-// var sequencePart1 = 
-// var sequenceParts = [list of sequence parts]
