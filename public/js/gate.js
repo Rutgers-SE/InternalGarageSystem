@@ -2,7 +2,6 @@
 
 var app = angular.module('gate-device', ['SocketIO', 'isDirectives']);
 
-
   function createRandomName(length) {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -53,9 +52,19 @@ app.controller("GateController", function ($scope, socket, DeviceState) {
     $scope.state.status.arm = opposite($scope.state.status.arm);
   };
 
-  function handleCommand() {
-    alert("The entrance gate received a command to open");
-    //socket.emit('dev:trigger', $scope.savedState);
+  /**
+   * opens the arm and sends the state
+   */
+  function openArm() {
+    alert("The entrance gate received a command to open the arm");
+    $scope.state.status.arm = 'opened';
+    socket.emit('dev:trigger', $scope.state);
+  }
+
+  function closeArm() {
+    alert("The entrance gate received a command to close the arm");
+    $scope.state.status.arm = 'closed';
+    socket.emit('dev:trigger', $scope.state);
   }
 
   socket.on('dev:command', function (payload) {
@@ -66,8 +75,10 @@ app.controller("GateController", function ($scope, socket, DeviceState) {
 
       switch(payload.actions.command) {
         case 'open!':
-          handleCommand();
+          openArm();
           break;
+        case 'close!':
+          closeArm();
         default:
           improperCommand();
       }
