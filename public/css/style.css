@@ -7,7 +7,6 @@ body{
   background: linear-gradient(to bottom right, red, blue);
 }
 
-
 .panel-heading{
   background: red;    
   background: -webkit-linear-gradient(left top, red, #555); 
@@ -17,7 +16,8 @@ body{
 }
 
 h2{
-  color: white;
+
+  color: #666;
 }
 
 .progress{
@@ -56,3 +56,18 @@ p{
   color: #444;
 }
 
+h3{
+  color: #999;
+  text-align: center;
+}
+
+h4{color: #999;}
+#AndroidLogoEnd{
+  width: 10%;
+  Height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+
+  
+}
