@@ -54,7 +54,8 @@ app.controller("GateController", function ($scope, socket, DeviceState) {
   };
 
   function handleCommand() {
-    socket.emit('dev:trigger', $scope.savedState);
+    alert("The entrance gate received a command to open");
+    //socket.emit('dev:trigger', $scope.savedState);
   }
 
   socket.on('dev:command', function (payload) {

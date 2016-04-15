@@ -103,10 +103,14 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     $scope.sequences = doc;
   });
 
-  socket.on('panel:event-log', function (pl) {
-    console.log(pl);
-    $scope.events = pl;
+  socket.on('panel:event-log-stream', function (eventObject) {
+    $scope.events.push(eventObject);
   });
+
+  //socket.on('panel:event-log', function (pl) {
+    //console.log(pl);
+    //$scope.events = pl;
+  //});
 
   socket.emit('panel:setup');
 });
