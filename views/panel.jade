@@ -19,6 +19,12 @@ html(ng-app="device-panel")
         script(src="/js/socket.js")
         script(src="/js/panel.js")
     body(ng-controller="PanelController")
+        div     
+            img.img-responsive(id="galaxyLogo", src="/images/galaxyIcon6.png", width="500 px")
+        div
+            div(class="progress")
+                div.progress-bar-success(class="progress-bar", role="progress-bar", aria-valuenow="70", aria-valuemin="0", aria-valuemax="100", style="width:70%")
+                    span(class="sr-only") 50% Complete
         .container
             .row
                 .col-md-6
@@ -58,7 +64,7 @@ html(ng-app="device-panel")
                             #camera-information.panel.panel-default
                                 .panel-heading
                                     h4 Cameras
-                                    button(ng-click="newCamera()") new Camera
+                                    button.btn.btn-primary(ing-click="newCamera()") new Camera
                                 .row
                                     #camera-container.col-md-12(ng_repeat="g in camera")
                                         .thumbnail
@@ -76,7 +82,7 @@ html(ng-app="device-panel")
                             #sensor-information.panel.panel-default
                                 .panel-heading
                                     h4 Sensors
-                                    button(ng-click="newSensor()") new sensor
+                                    button.btn.btn-primary(ng-click="newSensor()") new sensor
                                 .row
                                     #sensor-container.col-md-12(ng_repeat="g in sensor")
                                         .thumbnail

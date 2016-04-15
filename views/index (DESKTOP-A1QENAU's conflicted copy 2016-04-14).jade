@@ -1,0 +1,49 @@
+html
+	head
+		title this is awesome
+		script(src="/socket.io/socket.io.js")
+		script(src="/vendor/jquery/dist/jquery.min.js")
+		script(src="/vendor/lodash/dist/lodash.min.js")
+		link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet", href="/css/style.css")
+
+		script(src="/js/device.js")
+	body
+		#sensor-bar
+			button(id="create-camera-button") Camera
+			button(id="create-sensor-button") Sensor
+			button(id="create-terminal-button") Terminal
+			button(id="create-gate-button") Gate
+			button(id="create-qrScanner-button") QR Scanner
+		.container
+			.row
+				.col-sm-12.col-md-6
+					#camera-information.panel.panel-default
+						.panel-heading
+							h4 Cameras
+						.row
+							#camera-container
+				.col-sm-12.col-md-6
+					#sensor-information.panel.panel-default
+						.panel-heading
+							h4 Sensors
+						.row
+							#sensor-container
+				.col-sm-12.col-md-6
+					#terminal-information.panel.panel-default
+						.panel-heading
+							h4 Terminals
+						.row
+							#terminal-container
+				.col-sm-12.col-md-6
+					#gate-information.panel.panel-default
+						.panel-heading
+							h4 Gates
+						.row
+							#gate-container
+				.col-sm-12.col-md-6
+					#qr-scanner-information.panel.panel-default
+						.panel-heading
+							h4 QR Scanners
+						.row
+							#qrScanner-container

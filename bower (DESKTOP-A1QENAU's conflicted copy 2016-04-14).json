@@ -1,0 +1,26 @@
+{
+  "name": "internal-garage-system",
+  "description": "Provides the interface between the physical devices and there locations in the garage... etc",
+  "main": "index.js",
+  "authors": [
+    "Kerry",
+    "Omar"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Rutgers-SE/InternalGarageSystem",
+  "moduleType": [
+    "es6"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2",
+    "lodash": "^4.7.0",
+    "bootstrap": "^3.3.6"
+  }
+}
