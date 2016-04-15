@@ -1,12 +1,18 @@
+/*
 body{
  // background-color: #777;
   background: red;    
   background: -webkit-linear-gradient(left top, red, blue); 
   background: -o-linear-gradient(bottom right, red, blue); 
   background: -moz-linear-gradient(bottom right, red, blue); 
-  background: linear-gradient(to bottom right, red, blue);
+  background: linear-gradient(to bottom right, white, purple);
+  background: #555; 
+  background: -webkit-linear-gradient(#555, #666); 
+  background: -o-linear-gradient(#555, #888); 
+  background: -moz-linear-gradient(#555, #888); 
+  background: linear-gradient(purple ,white );  
 }
-
+/*
 .panel-heading{
   background: red;    
   background: -webkit-linear-gradient(left top, red, #555); 
@@ -21,7 +27,7 @@ body{
   background: -moz-linear-gradient(bottom right, red, #555); 
   background: linear-gradient(to bottom right, red, #555);
 }
-
+*/
 h2{
 
   color: #666;
@@ -77,4 +83,12 @@ h4{color: #999;}
   margin-right: auto
 
   
+}
+#topHeader{
+  background: #555; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#555, #666); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#555, #888); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#555, #888); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(purple ,white );/* Standard syntax */  
+
 }

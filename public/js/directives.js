@@ -132,5 +132,7 @@
 
 
 // Sajeel.io NOTES:
+//
+// sequence.relays
 // var sequencePart1 = 
 // var sequenceParts = [list of sequence parts]
