@@ -7,6 +7,7 @@ body{
   background: linear-gradient(to bottom right, red, blue);
 }
 
+
 .panel-heading{
   background: red;    
   background: -webkit-linear-gradient(left top, red, #555); 
@@ -19,4 +20,39 @@ h2{
   color: white;
 }
 
-#galaxyLogo
+.progress{
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+}
+
+#galaxyLogo{
+  width: 30%;
+  height: auto;  
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+
+}
+
+#galaxyLogoEnd{
+  width: 10%;
+  Height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto
+
+}
+#endOfPage{
+  height: "50 px";
+  background: #555; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#555, #666); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#555, #888); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#555, #888); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#777, #666);/* Standard syntax */  
+
+}
+p{
+  color: #444;
+}
+
