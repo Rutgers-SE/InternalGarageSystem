@@ -16,10 +16,11 @@ html(ng-app="camera-device")
     script(src='/js/directives.js')
     script(src="/js/camera.js")
   body(ng-controller="CameraController")
-    is-device(state="state" saved-state="savedState")
-      table.table.table-condensed.table-striped
-        tr(ng-repeat="(key, value) in state.status")
-          td {{key}}
-          td {{value}}
-          td 
-            button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state
+    .container
+      is-device(state="state" saved-state="savedState")
+        table.table.table-condensed.table-striped
+          tr(ng-repeat="(key, value) in state.status")
+            td {{key}}
+            td {{value}}
+            td 
+              button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state

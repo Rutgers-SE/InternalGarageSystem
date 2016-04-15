@@ -12,17 +12,11 @@ html(ng-app='sensor-view')
     script(src='/js/directives.js')
     script(src="/js/sensor.js")
   body(ng-controller="SensorController")
-    //button#sensed Sense
-    //h2 Device Name:
-    //h1(ng-bind="devName")
-    //h2 Device Status: 
-    //h1(ng-bind="pageStatus") Status 
-    //input(type="text", ng-model="devName", placeholder="Device Name")
-    //button(ng-click="toggleSignal()") {{stateText}}
-    is-device(state="state", saved-state="savedState")
-      table.table.table-condensed.table-striped
-        tr(ng-repeat="(key, value) in state.status")
-          td {{key}}
-          td {{value}}
-          td 
-            button#toggle-gate(ng-click="toggleState(key, value)") press to toggle state
+    .container
+      is-device(state="state", saved-state="savedState")
+        table.table.table-condensed.table-striped
+          tr(ng-repeat="(key, value) in state.status")
+            td {{key}}
+            td {{value}}
+            td 
+              button#toggle-gate(ng-click="toggleState(key, value)") press to toggle state

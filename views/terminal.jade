@@ -12,7 +12,7 @@ html(ng-app='terminal-view')
     script(src='/js/directives.js')
     script(src="/js/terminal.js")
   body(ng-controller="terminalController")
-    .row
+    .container
       is-device.col-sm-12(state="state" saved-state="savedState")
         table.table.table-condensed.table-striped
           tr(ng-repeat="(key, value) in state.status")
@@ -20,11 +20,3 @@ html(ng-app='terminal-view')
             td {{value}}
             td 
               button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state
-      //h2 Device Name:
-      //h1(ng-bind="devName")
-      //h2 Device Status:
-      //h1(ng-bind="status")
-      //input(type="text", ng-model="devName", placeholder="Device Name")
-      //button#walkin Walkin
-      //button#qr Reservation
-      //button#power Power
