@@ -17,10 +17,11 @@ html(ng-app="gate-device")
     script(src='/js/directives.js')
     script(src="/js/gate.js")
   body(ng-controller="GateController")
-    is-device(state="state" saved-state="savedState")
-      table.table.table-condensed.table-striped
-        tr(ng-repeat="(key, value) in state.status")
-          td {{key}}
-          td {{value}}
-          td 
-            button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state
+    .container
+      is-device(state="state" saved-state="savedState")
+        table.table.table-condensed.table-striped
+          tr(ng-repeat="(key, value) in state.status")
+            td {{key}}
+            td {{value}}
+            td 
+              button#toggle-gate(ng-click="toggleStatus(key, value)") press to toggle state
