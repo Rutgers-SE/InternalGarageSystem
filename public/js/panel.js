@@ -97,6 +97,15 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     else {};
   }
 
+
+  $scope.getProgress = function (so) {
+
+
+    console.log("awesome");
+
+    return ((so.head + 1) /so.chain.length) * 100;
+  };
+
   // recieve the sequence object
   socket.on('panel:oc-update', function (doc) {
     window.doc = doc;

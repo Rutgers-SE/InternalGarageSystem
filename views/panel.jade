@@ -27,9 +27,6 @@ html(ng-app="device-panel")
              h3 {{sequence}} Sequence Progress
                 bt
                 h3 {{inspirationalMessage}}
-                div(class="progress")
-                    div.progress-bar-success(class="progress-bar", role="progress-bar", aria-valuenow="70", aria-valuemin="0", aria-valuemax="100", style="width:70%")
-                        span(class="sr-only") 50% Complete
                     // span(class="sr-only) {{percentageFun}}% Complete
         .container
             .row
@@ -38,7 +35,15 @@ html(ng-app="device-panel")
                     button.btn.btn-primary(ng-click="resetHead()") reset all sequences
                     .seq(ng-repeat="(name, seqobj) in sequences")
                         h4 {{name}}
+                        span(class="sr-only") {{getProgress(seqobj)}}% Complete
                         .well.link.row(ng-repeat="r in seqobj.chain[seqobj.head]")
+                            div(class="progress")
+                                div.progress-bar-success(class="progress-bar" 
+                                                         role="progress-bar" 
+                                                         aria-valuenow="{{getProgress(seqobj)}}" 
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100"
+                                                         style="width:{{getProgress(seqobj)}}%")
                             .col-sm-12
                                 button.btn.btn-primary(ng-click="resetHead(name)") reset {{name}}
                             br
