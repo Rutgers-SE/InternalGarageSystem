@@ -56,13 +56,13 @@ app.controller("GateController", function ($scope, socket, DeviceState) {
    * opens the arm and sends the state
    */
   function openArm() {
-    alert("The entrance gate received a command to open the arm");
+    //alert("The entrance gate received a command to open the arm");
     $scope.state.status.arm = 'opened';
     socket.emit('dev:trigger', $scope.state);
   }
 
   function closeArm() {
-    alert("The entrance gate received a command to close the arm");
+    //alert("The entrance gate received a command to close the arm");
     $scope.state.status.arm = 'closed';
     socket.emit('dev:trigger', $scope.state);
   }
