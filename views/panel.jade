@@ -29,7 +29,7 @@ html(ng-app="device-panel")
                     // span(class="sr-only) {{percentageFun}}% Complete
         .container
             .row
-                .col-md-6
+                .col-md-9
                     h3 Sequences
                     button.btn.btn-primary(ng-click="resetHead()") reset all sequences
                     .seq(ng-repeat="(name, seqobj) in sequences")
@@ -54,12 +54,18 @@ html(ng-app="device-panel")
                                             td {{key}}
                                             td {{value}}
                             .relay.well.col-sm-6()
-                                ul
-                                    li(ng-repeat="msg in events") {{msg}}
-                                        
+                                .panel.panel-default(ng-repeat="msg in events")
+                                    .panel-heading
+                                        h5 {{msg.direction}}
+                                    
+                                    table.table.table-striped
+                                        tr(ng-repeat="(key, value) in msg.payload")
+                                            td {{key}}
+                                            td {{value}}
+                                    
 
 
-                .col-md-6
+                .col-md-3
                     h3 Devices
                     .row
                         .col-sm-12

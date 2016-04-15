@@ -11,7 +11,7 @@ app.controller('terminalController', function($scope, socket, DeviceState) {
   });
 
   function showBootMessage() {
-    // alert some bull here
+    alert("The Terminal received to display the message");
     socket.emit('dev:trigger', $scope.savedState);
   }
 
