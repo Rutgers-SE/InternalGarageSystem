@@ -129,3 +129,8 @@
     };
   });
 }());
+
+
+// Sajeel.io NOTES:
+// var sequencePart1 = 
+// var sequenceParts = [list of sequence parts]

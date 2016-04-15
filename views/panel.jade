@@ -19,6 +19,14 @@ html(ng-app="device-panel")
         script(src="/js/socket.js")
         script(src="/js/panel.js")
     body(ng-controller="PanelController")
+        div     
+            img.img-responsive(id="galaxyLogo", src="/images/galaxyIcon6.png")
+        div
+            h3 {{inspirationalMessage}}
+            div(class="progress")
+                div.progress-bar-success(class="progress-bar", role="progress-bar", aria-valuenow="70", aria-valuemin="0", aria-valuemax="100", style="width:70%")
+                    span(class="sr-only") 50% Complete
+                    // span(class="sr-only) {{percentageFun}}% Complete
         .container
             .row
                 .col-md-9
@@ -64,7 +72,7 @@ html(ng-app="device-panel")
                             #camera-information.panel.panel-default
                                 .panel-heading
                                     h4 Cameras
-                                    button(ng-click="newCamera()") new Camera
+                                    button.btn.btn-primary(ing-click="newCamera()") new Camera
                                 .row
                                     #camera-container.col-md-12(ng_repeat="g in camera")
                                         .thumbnail
@@ -82,7 +90,7 @@ html(ng-app="device-panel")
                             #sensor-information.panel.panel-default
                                 .panel-heading
                                     h4 Sensors
-                                    button(ng-click="newSensor()") new sensor
+                                    button.btn.btn-primary(ng-click="newSensor()") new sensor
                                 .row
                                     #sensor-container.col-md-12(ng_repeat="g in sensor")
                                         .thumbnail
@@ -100,7 +108,7 @@ html(ng-app="device-panel")
                             #terminal-information.panel.panel-default
                                 .panel-heading
                                     h4 Terminals
-                                    button(ng-click="newTerminal()") new terminal
+                                    button.btn.btn-primary(ng-click="newTerminal()") new terminal
                                 .row
                                     #terminal-container.col-md-12(ng_repeat="g in terminal")
                                         .thumbnail
@@ -118,7 +126,7 @@ html(ng-app="device-panel")
                             #gate-information.panel.panel-default
                                 .panel-heading
                                     h4 Gates
-                                    button(ng-click="newGate()") new gate
+                                    button.btn.btn-primary(ng-click="newGate()") new gate
                                 .row
                                     #gate-container.col-sm-12(ng_repeat="g in gate")
                                         .thumbnail
@@ -132,4 +140,12 @@ html(ng-app="device-panel")
                                                         td {{key}}
                                                         td {{value}}
                                                 button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
-
+        div(id="endOfPage")
+            
+            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
+            br
+            img.img-responsive(id="galaxyLogoEnd", src="/images/galaxyIcon6.png")
+            //img.img-responsive(id="AndroidLogoEnd", src="/images/marshmallow.png")
+            h3 Created by Galaxy Garage Designs Inc.
+            br
+            h4 ... cough, cough, I mean Alex.io

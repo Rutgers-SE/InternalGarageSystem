@@ -11,14 +11,16 @@ html
         link(href="/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet")
         script(src="/vendor/angular-xeditable/dist/js/xeditable.js")
         link(rel="stylesheet", href="/css/style.css")
+        link(rel="stylesheet", href="/public/css/style.css")
+        link(rel="stylesheet", href="/css/style.css")
+    
     body
         .container
             .row
                 h1 Main Menu
                 a.btn.btn-warning(href="/devices/panel") Panel
-                a.btn.btn-danger(href="/devices/panel") Panel
-                a.btn.btn-success(href="/devices/panel") Panel
-                a.btn.btn-primary(href="/devices/panel") Panel
-                a.btn.btn-info(href="/devices/panel") Panel
-                a.btn.btn-default(href="/devices/panel") Panel
+                a.btn.btn-warning(href="/devices/panel") About the Authors
+                a.btn.btn-danger(href="/devices/panel", ng-model) Galaxy Garage
+                
+
 
