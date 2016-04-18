@@ -18,7 +18,7 @@ function normalizePort(val) {
   return false;
 }
 
-var port = normalizePort(process.env.PORT || '8080')
+var port = normalizePort(process.env.PORT || '9001')
 
 // web  server deps
 var app = require('express')();
