@@ -40,7 +40,7 @@ h2{
 }
 
 #galaxyLogo{
-  width: 30%;
+  width: 15%;
   height: auto;  
   display: block;
   margin-left: auto;
@@ -58,12 +58,13 @@ h2{
 }
 #endOfPage{
   height: "50 px";
-  background: #555; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(#555, #666); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#555, #888); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#555, #888); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(white, #666);/* Standard syntax */  
-
+  
+  /*background: #555; /* For browsers that do not support gradients */
+  /*background: -webkit-linear-gradient(#555, #666); /* For Safari 5.1 to 6.0 */
+  /*background: -o-linear-gradient(#555, #888); /* For Opera 11.1 to 12.0 */
+  /*background: -moz-linear-gradient(#555, #888); /* For Firefox 3.6 to 15 */
+  /*background: linear-gradient(white, #666);/* Standard syntax */  
+  background: white
 }
 p{
   color: #444;
@@ -74,7 +75,7 @@ h3{
   text-align: center;
 }
 h5{
-  color: white;
+  color: #666;
   text-align: center;
   
 }
@@ -94,6 +95,6 @@ h4{color: #999;}
   background: -webkit-linear-gradient(#555, #666); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#555, #888); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(#555, #888); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(purple ,white );/* Standard syntax */  
+  background: linear-gradient(purple, white);/* Standard syntax */  
 
 }
