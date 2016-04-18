@@ -18,141 +18,136 @@ html(ng-app="device-panel")
 
         script(src="/js/socket.js")
         script(src="/js/panel.js")
-    body(ng-controller="PanelController")
 
+    body(ng-controller="PanelController")
         div(id="topHeader")     
             div
               img.img-responsive(id="galaxyLogo", src="/images/galaxyIcon6.png")
             div
-             h3 {{sequence}} Sequence Progress
-                bt
-                h3 {{inspirationalMessage}}
-                    // span(class="sr-only) {{percentageFun}}% Complete
+              h2(style = "text-align: center;") {{sequence}} Sequence Progress
         .container
-            .row
-                .col-md-9
-                    h3 Sequences
-                    button.btn.btn-primary(ng-click="resetHead()") reset all sequences
-                    .seq(ng-repeat="(name, seqobj) in sequences")
-                        h4 {{name}}
-                        span(class="sr-only") {{getProgress(seqobj)}}% Complete
-                        .well.link.row(ng-repeat="r in seqobj.chain[seqobj.head]")
-                            div(class="progress")
-                                div.progress-bar-success(class="progress-bar" 
-                                                         role="progress-bar" 
-                                                         aria-valuenow="{{getProgress(seqobj)}}" 
-                                                         aria-valuemin="0"
-                                                         aria-valuemax="100"
-                                                         style="width:{{getProgress(seqobj)}}%")
-                            .col-sm-12
-                                button.btn.btn-primary(ng-click="resetHead(name)") reset {{name}}
-                            br
-                            .relay.well.col-sm-6()
-                                .panel.panel-default
-                                    .panel-heading
-                                        span.label.label-info incoming
-                                    table.table.table-responsive
-                                        tr(ng-repeat="(key, value) in r.incoming")
-                                            td {{key}}
-                                            td {{value}}
-                                .panel.panel-default
-                                    .panel-heading
-                                        span.label.label-info outgoing
-                                    table.table.table-responsive
-                                        tr(ng-repeat="(key, value) in r.outgoing")
-                                            td {{key}}
-                                            td {{value}}
-                            .relay.well.col-sm-6()
-                                .panel.panel-default(ng-repeat="msg in events")
-                                    .panel-heading
-                                        h5 {{msg.direction}}
-                                    
-                                    table.table.table-striped
-                                        tr(ng-repeat="(key, value) in msg.payload")
-                                            td {{key}}
-                                            td {{value}}
-                                    
-
-
-                .col-md-3
-                    h3 Devices
-                    .row
-                        .col-sm-12
-                            #camera-information.panel.panel-default
-                                .panel-heading
-                                    h4 Cameras
-                                    button.btn.btn-primary(ing-click="newCamera()") new Camera
-                                .row
-                                    #camera-container.col-md-12(ng_repeat="g in camera")
-                                        .thumbnail
-                                            .caption
-                                                h5(editable-text="g.name") {{g.name}}
-                                                table.table.table-responsive.table-striped
-                                                    tr
-                                                        th Variable
-                                                        th Value
-                                                    tr(ng-repeat="(key, value) in g.status")
-                                                        td {{key}}
-                                                        td {{value}}
-                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
-                        .col-sm-12
-                            #sensor-information.panel.panel-default
-                                .panel-heading
-                                    h4 Sensors
-                                    button.btn.btn-primary(ng-click="newSensor()") new sensor
-                                .row
-                                    #sensor-container.col-md-12(ng_repeat="g in sensor")
-                                        .thumbnail
-                                            .caption
-                                                h5(editable-text="g.name") {{g.name}}
-                                                table.table.table-responsive.table-striped
-                                                    tr
-                                                        th Variable
-                                                        th Value
-                                                    tr(ng-repeat="(key, value) in g.status")
-                                                        td {{key}}
-                                                        td {{value}}
-                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
-                        .col-sm-12
-                            #terminal-information.panel.panel-default
-                                .panel-heading
-                                    h4 Terminals
-                                    button.btn.btn-primary(ng-click="newTerminal()") new terminal
-                                .row
-                                    #terminal-container.col-md-12(ng_repeat="g in terminal")
-                                        .thumbnail
-                                            .caption
-                                                h5(editable-text="g.name") {{g.name}}
-                                                table.table.table-responsive.table-striped
-                                                    tr
-                                                        th Variable
-                                                        th Value
-                                                    tr(ng-repeat="(key, value) in g.status")
-                                                        td {{key}}
-                                                        td {{value}}
-                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
-                        .col-sm-12
-                            #gate-information.panel.panel-default
-                                .panel-heading
-                                    h4 Gates
-                                    button.btn.btn-primary(ng-click="newGate()") new gate
-                                .row
-                                    #gate-container.col-sm-12(ng_repeat="g in gate")
-                                        .thumbnail
-                                            .caption
-                                                h5(editable-text="g.name") {{g.name}}
-                                                table.table.table-responsive.table-striped
-                                                    tr
-                                                        th Variable
-                                                        th Value
-                                                    tr(ng-repeat="(key, value) in g.status")
-                                                        td {{key}}
-                                                        td {{value}}
-                                                button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
-        div(id="endOfPage")
-            
-            p Lorem Ipsum is simply dummy text of the printing and typesetting industry.industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. 
+          .col-md-8
+            h3(style = "text-align: left;") Sequences:
             br
-            img.img-responsive(id="galaxyLogoEnd", src="/images/galaxyIcon6.png")
-            //img.img-responsive(id="AndroidLogoEnd", src="/images/marshmallow.png")
-            h5 Created by Galaxy Garage Designs Inc.
+            .row
+              .col-sm-12
+                .seq(ng-repeat="(name, seqobj) in sequences")
+                    span(class="sr-only") {{getProgress(seqobj)}}% Complete
+                    .well.link.row(ng-repeat="r in seqobj.chain[seqobj.head]")
+                      h4 {{name}}:
+                      div(class="progress")
+                          div.progress-bar-success(class="progress-bar" 
+                                                   role="progress-bar" 
+                                                   aria-valuenow="{{getProgress(seqobj)}}" 
+                                                   aria-valuemin="0"
+                                                   aria-valuemax="100"
+                                                   style="width:{{getProgress(seqobj)}}%")
+                      .col-sm-12
+                        button.btn.btn-primary(ng-click="resetHead(name)") reset {{name}}
+                        br
+                        br
+                      .relay.well.col-sm-6()
+                          .panel.panel-default
+                              .panel-heading
+                                  span.label.label-info incoming
+                              table.table.table-responsive
+                                  tr(ng-repeat="(key, value) in r.incoming")
+                                      td {{key}}
+                                      td {{value}}
+                          .panel.panel-default
+                              .panel-heading
+                                  span.label.label-info outgoing
+                              table.table.table-responsive
+                                  tr(ng-repeat="(key, value) in r.outgoing")
+                                      td {{key}}
+                                      td {{value}}
+                      .relay.well.col-sm-6()
+                          .panel.panel-default(ng-repeat="msg in events")
+                              .panel-heading
+                                  h5 {{msg.direction}}
+                              
+                              table.table.table-striped
+                                  tr(ng-repeat="(key, value) in msg.payload")
+                                      td {{key}}
+                                      td {{value}}
+                    button.btn.btn-primary(ng-click="resetHead()") Reset all sequences
+          .col-md-4
+            h3(style = "text-align: left;") Devices:
+            br
+            .row
+                .col-sm-12
+                    #camera-information.panel.panel-default
+                        .panel-heading
+                            h4 Cameras:
+                            button.btn.btn-primary(ing-click="newCamera()") new camera
+                        .row
+                            #camera-container.col-md-12(ng_repeat="g in camera")
+                                .thumbnail
+                                    .caption
+                                        h5(editable-text="g.name") {{g.name}}
+                                        table.table.table-responsive.table-striped
+                                            tr
+                                                th Variable
+                                                th Value
+                                            tr(ng-repeat="(key, value) in g.status")
+                                                td {{key}}
+                                                td {{value}}
+                                        button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+                .col-sm-12
+                    #sensor-information.panel.panel-default
+                        .panel-heading
+                            h4 Sensors:
+                            button.btn.btn-primary(ng-click="newSensor()") new sensor
+                        .row
+                            #sensor-container.col-md-12(ng_repeat="g in sensor")
+                                .thumbnail
+                                    .caption
+                                        h5(editable-text="g.name") {{g.name}}
+                                        table.table.table-responsive.table-striped
+                                            tr
+                                                th Variable
+                                                th Value
+                                            tr(ng-repeat="(key, value) in g.status")
+                                                td {{key}}
+                                                td {{value}}
+                                        button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+                .col-sm-12
+                    #terminal-information.panel.panel-default
+                        .panel-heading
+                            h4 Terminals:
+                            button.btn.btn-primary(ng-click="newTerminal()") new terminal
+                        .row
+                            #terminal-container.col-md-12(ng_repeat="g in terminal")
+                                .thumbnail
+                                    .caption
+                                        h5(editable-text="g.name") {{g.name}}
+                                        table.table.table-responsive.table-striped
+                                            tr
+                                                th Variable
+                                                th Value
+                                            tr(ng-repeat="(key, value) in g.status")
+                                                td {{key}}
+                                                td {{value}}
+                                        button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+                .col-sm-12
+                    #gate-information.panel.panel-default
+                        .panel-heading
+                            h4 Gates:
+                            button.btn.btn-primary(ng-click="newGate()") new gate
+                        .row
+                            #gate-container.col-sm-12(ng_repeat="g in gate")
+                                .thumbnail
+                                    .caption
+                                        h5(editable-text="g.name") {{g.name}}
+                                        table.table.table-responsive.table-striped
+                                            tr
+                                                th Variable
+                                                th Value
+                                            tr(ng-repeat="(key, value) in g.status")
+                                                td {{key}}
+                                                td {{value}}
+                                        button.btn.btn-warning(ng-click="closeDevice(g.name, g.deviceType)") x
+div(id="endOfPage")
+
+    img.img-responsive(id="galaxyLogoEnd", src="/images/galaxyIcon6.png")
+    h5 Created by Galaxy Garage Designs Inc.
