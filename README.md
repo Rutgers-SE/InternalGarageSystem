@@ -1,6 +1,21 @@
 # InternalGarageSystem
 The portion of the website that controls device registration, and activation
 
+## Todo list
+
+- [x] DeviceModel
+  - Won't be able to test in real implementations
+  - [x] Define the interface for a generic device (refer to the reports)
+- [x] DeviceOrchestrator (DO)
+  - [x] Define a composer that runs devices in a certain pattern
+  - [ ] Have the ability to have multiple sequences running at the same time.
+  - [ ] Define events specific to tripping the next seqence in the DO.
+- [x] GarageModel
+  - Make sure that the theoretical reservedTimes are the same as the physicall spaces occupied.
+  - [ ] Build an experimental and theoretical model of the garage.
+      - This will be tightly coupled to the device model.
+      - This will be used to handle exceptions, and send information to the reservation system.
+
 # IMPORTANT
 
 When running the code, run with:
@@ -32,15 +47,6 @@ On the server-side of the application, we do not directive interface with the So
 
 
 
-## Todo list
-
-- [x] DeviceModel
-  - [x] Define the interface for a generic device (refer to the reports)
-- [x] DeviceController
-  - [ ] Define a composer that runs devices in a certain pattern
-- [x] GarageModel
-  - Make sure that the theoretical reservedTimes are the same as the physicall spaces occupied.
-- [x] Sequence a DS that iterates when a certain payload is received
 
 
 ### GarageModel
