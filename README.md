@@ -15,6 +15,7 @@ The portion of the website that controls device registration, and activation
   - [ ] Build an experimental and theoretical model of the garage.
       - This will be tightly coupled to the device model.
       - This will be used to handle exceptions, and send information to the reservation system.
+- [ ] Make both garage models persistent 
 
 # IMPORTANT
 
