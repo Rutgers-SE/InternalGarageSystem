@@ -32,12 +32,12 @@ html(ng-app="device-panel")
             .row
               .col-sm-12
                 .seq(ng-repeat="(name, seqobj) in sequences")
-                    span(class="sr-only") {{getProgress(seqobj)}}% Complete
+                    span(class="sr-only") 
                     .well.link.row(ng-repeat="r in seqobj.chain[seqobj.head]")
-                      h4 {{name}}:
+                      h4 {{name}}: {{getProgress(seqobj)}}% Complete
                       div(class="progress")
                           div.progress-bar-success(class="progress-bar" 
-                                                   role="progress-bar" 
+                                                   role="progressbar" 
                                                    aria-valuenow="{{getProgress(seqobj)}}" 
                                                    aria-valuemin="0"
                                                    aria-valuemax="100"

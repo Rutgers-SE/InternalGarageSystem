@@ -67,8 +67,15 @@ doc.defineSequence('entrance')
   )])
   .addRelay([new Relay(
     {'name': 'entrance-gate', 'status': {'arm': 'closed'}},
-    {}
+    {'trip': 'parking'}
   )]);
+
+doc.defineSequence('parking')
+  .addRelay([
+    new Relay(
+      {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
+      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
+  ]);
 
 // PRIORITY: 1
 //doc.defineSequence('parking')
@@ -78,7 +85,7 @@ doc.defineSequence('entrance')
   //)])
 
 
-doc.listen({devices},[
+doc.listen([
   'entrance',
   'parking',
   'exit'

@@ -41,7 +41,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     if (name !== undefined) {
     socket.emit('doc:reset-head', {sequenceName: name});
     }
-    socket.emit('doc:reset-head');
+    socket.emit('doc:reset-head', {});
   };
 
   
@@ -60,6 +60,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   // just here to check if something good happened
   socket.on('panel:test', function () {
     console.info("This is a test");
+    alert("awesome");
   })
 
   socket.on('panel:update-devices', function (pl) {
@@ -103,7 +104,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
 
     console.log("awesome");
 
-    return ((so.head + 1) /so.chain.length) * 100;
+    return ((so.head) /so.chain.length) * 100;
   };
 
   // recieve the sequence object
