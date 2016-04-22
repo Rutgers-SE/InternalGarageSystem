@@ -59,7 +59,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
 
   // just here to check if something good happened
   socket.on('panel:test', function (pl) {
-    alert(pl.msg);
+    alert(pl["msg"]);
     alert(pl)
   });
 
