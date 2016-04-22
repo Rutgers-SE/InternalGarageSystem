@@ -14,7 +14,10 @@
     "type": "git",
     "url": "git+https://github.com/Rutgers-SE/InternalGarageSystem.git"
   },
-  "author": "Kerry, Omar",
+  "author": [
+    "Kerry",
+    "Omar"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Rutgers-SE/InternalGarageSystem/issues"
