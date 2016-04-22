@@ -58,9 +58,8 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   });
 
   // just here to check if something good happened
-  socket.on('panel:test', function () {
-    console.info("This is a test");
-    alert("awesome");
+  socket.on('panel:test', function (pl) {
+    alert(pl.msg);
   })
 
   socket.on('panel:update-devices', function (pl) {
