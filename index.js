@@ -89,6 +89,6 @@ doc.listen([
   'entrance',
   'parking',
   'exit'
-]);
+], 'entrance');
 
 console.log("Listening on port: " + port);
