@@ -31,5 +31,18 @@ describe('Garage', function () {
       expect(g.releaseSpace(1)).to.equal(true);
       expect(g.availbleSpaces()).to.equal(5);
     })
+
+    it('should return fals and the keep the count above zero when trying to acquire a space in a full garage', function () {
+      var g = new Garage(1);
+      expect(g.acquireSpace(1)).to.equal(true);
+      expect(g.availbleSpaces()).to.equal(0);
+      expect(g.acquireSpace(1)).to.equal(false);
+    })
+
+    it('should not release spots higher than the cap', function () {
+      var g = new Garage(1);
+      expect(g.releaseSpace(1)).to.equal(false);
+      expect(g.availbleSpaces()).to.equal(1);
+    })
   })
 })
