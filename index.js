@@ -30,8 +30,13 @@ server.listen(port);
 // project libs
 var SpaceManager = require("./lib/spaceManager.js");
 var {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
+var {Garage} = require('./lib/Garage');
 
+
+// lets define the garage
 var spaceManOne = new SpaceManager(200);
+var ActualGarage  = new Garage(200);
+var VirtualGarage = new Garage(200);
 
 require('./routes/middleware')(app);
 require('./routes')(app);
