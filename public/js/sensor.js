@@ -42,7 +42,7 @@ app.controller('SensorController', function ($scope, DeviceState, $routeParams) 
 
   $scope.toggleState = function () { 
     let self = this;
-    alert(`${$routeParams.name}`)
+    // alert(`${$routeParams.name}`)
     $scope.state.status.signal = opposite($scope.state.status.signal);
   };
 

@@ -44,7 +44,6 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     socket.emit('doc:reset-head', {});
   };
 
-  
   $scope.closeDevice = function (name, dType) {
     console.log("Closing Dev:(" + name + ":" + dType + ")");
     socket.emit("dev:close", {
@@ -100,11 +99,8 @@ app.controller('PanelController', function ($scope, socket, $sce) {
 
 
   $scope.getProgress = function (so) {
-
-
     console.log("awesome");
-
-    return ((so.head) /so.chain.length) * 100;
+    return ((so.head) / so.chain.length) * 100;
   };
 
   // recieve the sequence object
@@ -124,6 +120,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     let status = payload['status'];
     _.times(status['args']['sensor-count'], () => {
       // This should spawn the amount of available spaces in the system
+      $scope.newSensor();
     })
 
 
