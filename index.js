@@ -35,7 +35,7 @@ var {Garage} = require('./lib/Garage');
 
 // lets define the garage
 var spaceManOne = new SpaceManager(200);
-var ActualGarage  = new Garage(200);
+var PhysicalGarage  = new Garage(200);
 var VirtualGarage = new Garage(200);
 
 require('./routes/middleware')(app);
@@ -45,7 +45,10 @@ require('./routes')(app);
 var doc = new DeviceOrchestrator({io});
 
 // attaching unary device events
-var {devices} = require('./lib/events')(doc);
+var {devices} = require('./lib/events')(doc, {
+  actualGarge: PhysicalGarage,
+  virtualGarage: VirtualGarage
+});
 
 // TODO: might move this to `lib/event/index`
 // TODO: reflect the real entrance sequence
@@ -78,9 +81,15 @@ doc.defineSequence('entrance')
 doc.defineSequence('parking')
   .addRelay([
     new Relay(
+      {'name': 'panel', 'status': {'sensors': 'on'}},
+      {})]);
+  .addRelay([new Relay(
       {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
-      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
-  ]);
+      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
+  .addRelay([new Relay(
+      {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
+      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
+
 
 // PRIORITY: 1
 //doc.defineSequence('parking')
