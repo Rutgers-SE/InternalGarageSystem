@@ -82,10 +82,10 @@ doc.defineSequence('parking')
   .addRelay([
     new Relay(
       {'name': 'panel', 'status': {'sensors': 'on'}},
-      {})]);
+      {})])
   .addRelay([new Relay(
       {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
-      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
+      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})])
   .addRelay([new Relay(
       {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
       {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
@@ -116,14 +116,6 @@ doc.defineSequence('exit')
     {'name': 'exit-gate', 'status': {'arm': 'closed'}},
     {'trip': 'parking'}
   )]);
-
-// PRIORITY: 1
-//doc.defineSequence('parking')
-  //.addRelay([new Relay(
-    //{'name': 'pre-entrance-sensor', 'status': {'signal':'HI'}}, 
-    //{'name': 'entrance-terminal', 'actions': {'command': 'display!'}}
-  //)])
-
 
 doc.listen([
   'entrance',
