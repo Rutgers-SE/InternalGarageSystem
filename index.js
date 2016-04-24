@@ -91,6 +91,32 @@ doc.defineSequence('parking')
       {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
 
 
+doc.defineSequence('exit')
+  .addRelay([new Relay(
+    {'name': 'pre-exit-sensor', 'status': {'signal':'HI'}}, 
+    {'name': 'exit-terminal', 'actions': {'command': 'display!'}}
+  )])
+  .addRelay([new Relay(
+    {'name': 'exit-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
+    {'name': 'exit-gate', 'actions': {'command': 'open!'}}
+  )])
+  .addRelay([new Relay(
+    {'name': 'exit-gate', 'status': {'arm': 'opened'}},
+    {}
+  )])
+  .addRelay([new Relay(
+    {'name': 'post-exit-sensor', 'status': {'signal': 'HI'}},
+    {}
+  )])
+  .addRelay([new Relay(
+    {'name': 'post-exit-sensor', 'status': {'signal': 'LOW'}},
+    {'name': 'exit-gate', 'actions': {'command': 'close!'}}
+  )])
+  .addRelay([new Relay(
+    {'name': 'exit-gate', 'status': {'arm': 'closed'}},
+    {'trip': 'parking'}
+  )]);
+
 // PRIORITY: 1
 //doc.defineSequence('parking')
   //.addRelay([new Relay(
