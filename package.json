@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --harmony_destructuring index",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --harmony_destructuring",
     "dev": "nodemon --harmony_destructuring index",
     "prod": "node --harmony_destructuring index",
     "postinstall": "./node_modules/bower/bin/bower install"
