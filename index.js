@@ -27,7 +27,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
 server.listen(port);
 
-// project libs
+// Project Classes
 var SpaceManager = require("./lib/spaceManager.js");
 var {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
 var {Garage} = require('./lib/Garage');
@@ -44,78 +44,84 @@ require('./routes')(app);
 // I want this porition to be in a separate file
 var doc = new DeviceOrchestrator({io});
 
+// getting the model
+let {db} = require('./lib/model');
+
 // attaching unary device events
 var {devices} = require('./lib/events')(doc, {
   actualGarge: PhysicalGarage,
-  virtualGarage: VirtualGarage
+  virtualGarage: VirtualGarage,
+  db
 });
 
 // TODO: might move this to `lib/event/index`
 // TODO: reflect the real entrance sequence
 doc.defineSequence('entrance')
-  .addRelay([new Relay(
-    {'name': 'pre-entrance-sensor', 'status': {'signal':'HI'}}, 
-    {'name': 'entrance-terminal', 'actions': {'command': 'display!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'entrance-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
-    {'name': 'entrance-gate', 'actions': {'command': 'open!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'entrance-gate', 'status': {'arm': 'opened'}},
-    {}
-  )])
-  .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'status': {'signal': 'HI'}},
-    {}
-  )])
-  .addRelay([new Relay(
-    {'name': 'post-entrance-sensor', 'status': {'signal': 'LOW'}},
-    {'name': 'entrance-gate', 'actions': {'command': 'close!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'entrance-gate', 'status': {'arm': 'closed'}},
-    {'trip': 'parking'}
-  )]);
+  .addRelay([
+    new Relay({'name': 'pre-entrance-sensor', 'status': {'signal':'HI'}},
+              {'name': 'entrance-terminal', 'actions': {'command': 'display!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'entrance-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}},
+              {'name': 'entrance-gate', 'actions': {'command': 'open!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'entrance-gate', 'status': {'arm': 'opened'}},
+              {})
+  ])
+  .addRelay([
+    new Relay({'name': 'post-entrance-sensor', 'status': {'signal': 'HI'}},
+              {})
+  ])
+  .addRelay([
+    new Relay({'name': 'post-entrance-sensor', 'status': {'signal': 'LOW'}},
+              {'name': 'entrance-gate', 'actions': {'command': 'close!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'entrance-gate', 'status': {'arm': 'closed'}},
+              {'trip': 'parking'})
+  ]);
 
 doc.defineSequence('parking')
   .addRelay([
-    new Relay(
-      {'name': 'panel', 'status': {'sensors': 'on'}},
-      {})])
-  .addRelay([new Relay(
-      {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
-      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})])
-  .addRelay([new Relay(
-      {'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
-      {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})]);
+    new Relay({'name': 'panel', 'status': {'sensors': 'on'}},
+              {})
+  ])
+  .addRelay([
+    new Relay({'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
+              {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
+              {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
+  ]);
 
 
 doc.defineSequence('exit')
-  .addRelay([new Relay(
-    {'name': 'pre-exit-sensor', 'status': {'signal':'HI'}}, 
-    {'name': 'exit-terminal', 'actions': {'command': 'display!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'exit-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}}, 
-    {'name': 'exit-gate', 'actions': {'command': 'open!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'exit-gate', 'status': {'arm': 'opened'}},
-    {}
-  )])
-  .addRelay([new Relay(
-    {'name': 'post-exit-sensor', 'status': {'signal': 'HI'}},
-    {}
-  )])
-  .addRelay([new Relay(
-    {'name': 'post-exit-sensor', 'status': {'signal': 'LOW'}},
-    {'name': 'exit-gate', 'actions': {'command': 'close!'}}
-  )])
-  .addRelay([new Relay(
-    {'name': 'exit-gate', 'status': {'arm': 'closed'}},
-    {'trip': 'parking'}
-  )]);
+  .addRelay([
+    new Relay({'name': 'pre-exit-sensor', 'status': {'signal':'HI'}},
+              {'name': 'exit-terminal', 'actions': {'command': 'display!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'exit-terminal', 'status': {'qr-data': 'RAW', 'action-type': 'reservation'}},
+              {'name': 'exit-gate', 'actions': {'command': 'open!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'exit-gate', 'status': {'arm': 'opened'}},
+              {})
+  ])
+  .addRelay([
+    new Relay({'name': 'post-exit-sensor', 'status': {'signal': 'HI'}},
+              {})
+  ])
+  .addRelay([
+    new Relay({'name': 'post-exit-sensor', 'status': {'signal': 'LOW'}},
+              {'name': 'exit-gate', 'actions': {'command': 'close!'}})
+  ])
+  .addRelay([
+    new Relay({'name': 'exit-gate', 'status': {'arm': 'closed'}},
+              {'trip': 'parking'})
+  ]);
 
 doc.listen([
   'entrance',
