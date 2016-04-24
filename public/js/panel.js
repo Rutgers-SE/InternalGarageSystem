@@ -117,6 +117,14 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     $scope.events.push(eventObject);
   });
 
+  socket.on('dev:command', (payload) => {
+    if (payload['name'] !== 'panel') return;
+
+    let status = payload['status'];
+    alert(status['command']);
+
+  });
+
   //socket.on('panel:event-log', function (pl) {
     //console.log(pl);
     //$scope.events = pl;
@@ -124,8 +132,7 @@ app.controller('PanelController', function ($scope, socket, $sce) {
 
   socket.emit('panel:setup');
   $scope.percentageFun = function() {
-    return seqobj.head/seqobj.chain.length;        
-    
-  }
+    return seqobj.head/seqobj.chain.length;
+  };
 });
 

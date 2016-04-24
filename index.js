@@ -49,8 +49,8 @@ let {db} = require('./lib/model');
 
 // attaching unary device events
 let {devices} = require('./lib/events')(doc, {
-  actualGarge: PhysicalGarage,
-  virtualGarage: VirtualGarage,
+  PhysicalGarage,
+  VirtualGarage,
   db
 });
 
