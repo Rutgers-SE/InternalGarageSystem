@@ -120,8 +120,13 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   socket.on('dev:command', (payload) => {
     if (payload['name'] !== 'panel') return;
 
+    // status contains the command that should be executed
     let status = payload['status'];
-    alert(status['command']);
+    _.times(status['args']['sensor-count'], () => {
+      // This should spawn the amount of available spaces in the system
+    })
+
+
 
   });
 

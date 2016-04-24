@@ -1,15 +1,26 @@
-var app = angular.module('sensor-view', ['isDirectives']);
+var app = angular.module('sensor-view', ['isDirectives', 'ngRoute']);
+
+app.config(function($routeProvider){
+  $routeProvider.when(
+    "/:name",
+    {
+      controller: "SensorController",
+      controllerAs: "sensor"
+    }
+  );
+})
+
 
 function action(w) {
   switch(w) {
-    case 'opened':
-      return 'open';
-      break;
-    case 'closed':
-      return 'close';
-      break;
-    default:
-      return w;
+  case 'opened':
+    return 'open';
+    break;
+  case 'closed':
+    return 'close';
+    break;
+  default:
+    return w;
   }
 }
 
@@ -20,7 +31,7 @@ function opposite (s) {
   return 'LOW';
 }
 
-app.controller('SensorController', function ($scope, DeviceState) {
+app.controller('SensorController', function ($scope, DeviceState, $routeParams) {
 
   $scope.state = DeviceState.default('sensor', {
     signal: 'LOW'
@@ -30,6 +41,8 @@ app.controller('SensorController', function ($scope, DeviceState) {
   });
 
   $scope.toggleState = function () { 
+    let self = this;
+    alert(`${$routeParams.name}`)
     $scope.state.status.signal = opposite($scope.state.status.signal);
   };
 

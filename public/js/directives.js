@@ -42,8 +42,6 @@
         // {{{
 
         $scope.saveObject = function () {
-          console.log("Current ", $scope.state );
-          console.log("Saved ", $scope.savedState);
           if (_.isEqual($scope.state, $scope.savedState)) return {
             text: 'fresh',
             className: 'success'
@@ -69,7 +67,6 @@
         }
 
         socket.on('dev:updated', function (updatedDeviceObject) {
-          console.log("Updated Object", updatedDeviceObject);
           _.merge($scope.savedState, updatedDeviceObject);
           _.merge($scope.state, updatedDeviceObject);
         });

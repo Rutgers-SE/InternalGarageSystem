@@ -79,7 +79,7 @@ html(ng-app="device-panel")
                     #camera-information.panel.panel-default
                         .panel-heading
                             h4 Cameras:
-                            button.btn.btn-primary(ing-click="newCamera()") new camera
+                            button.btn.btn-primary(ng-click="newCamera()") new camera
                         .row
                             #camera-container.col-md-12(ng_repeat="g in camera")
                                 .thumbnail

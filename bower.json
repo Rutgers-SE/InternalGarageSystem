@@ -25,6 +25,7 @@
     "bootstrap": "^3.3.6",
     "angular": "^1.5.3",
     "angular-xeditable": "^0.1.11",
-    "angular-sanitize": "^1.5.3"
+    "angular-sanitize": "^1.5.3",
+    "angular-route": "^1.5.5"
   }
 }
