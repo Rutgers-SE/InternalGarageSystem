@@ -1,9 +1,9 @@
 "use strict";
 // programming deps
-var _ = require('lodash');
+let _ = require('lodash');
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -18,37 +18,37 @@ function normalizePort(val) {
   return false;
 }
 
-var port = normalizePort(process.env.PORT || '9001')
+let port = normalizePort(process.env.PORT || '9001');
 
 // web  server deps
-var app = require('express')();
+let app = require('express')();
 app.set('port', port);
-var server = require('http').Server(app);
-var io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
+let server = require('http').Server(app);
+let io = require('socket.io')(server, {'transports': ['websocket', 'polling']});
 server.listen(port);
 
 // Project Classes
-var SpaceManager = require("./lib/spaceManager.js");
-var {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
-var {Garage} = require('./lib/Garage');
+let SpaceManager = require("./lib/spaceManager.js");
+let {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
+let {Garage} = require('./lib/Garage');
 
 
 // lets define the garage
-var spaceManOne = new SpaceManager(200);
-var PhysicalGarage  = new Garage(200);
-var VirtualGarage = new Garage(200);
+let spaceManOne = new SpaceManager(200);
+let PhysicalGarage  = new Garage(200);
+let VirtualGarage = new Garage(200);
 
 require('./routes/middleware')(app);
 require('./routes')(app);
 
 // I want this porition to be in a separate file
-var doc = new DeviceOrchestrator({io});
+let doc = new DeviceOrchestrator({io});
 
 // getting the model
 let {db} = require('./lib/model');
 
 // attaching unary device events
-var {devices} = require('./lib/events')(doc, {
+let {devices} = require('./lib/events')(doc, {
   actualGarge: PhysicalGarage,
   virtualGarage: VirtualGarage,
   db
