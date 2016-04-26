@@ -3,10 +3,11 @@ module.exports = function ({spaceManOne}) {
   var r = require("express").Router();
   // we need to use passport for OAuth2
 
+
   var parseStartFinish = (req) => {
     return {
-      start: new Date(req.params.start),
-      finish: new Date(req.params.finish)
+      start: new Date(req.query.start),
+      finish: new Date(req.query.finish)
     }
   }
 
@@ -30,7 +31,7 @@ module.exports = function ({spaceManOne}) {
   });
 
   //Attempt to make reservation
-  r.get('/:garage_id/b/setreservation', function(req, res) {
+  r.post('/:garage_id/b/setreservation', function(req, res) {
     var {start, finish} = parseStartFinish(req);
     res.json(spaceManOne.setReservation(start, finish));
   });
