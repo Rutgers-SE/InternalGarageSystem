@@ -41,7 +41,7 @@ module.exports = function ({spaceManOne}) {
   });
 
   //Get unreserved spaces at specified timeslot
-  r.get('/:garage_id/n/getunreservedspaces/:y/:m/:d/:h', function(req, res){
+  r.get('/:garage_id/n/getunreservedspaces', function(req, res){
     res.json(spaceManOne.getUnreservedSpaces(new Date(req.params.date)));
   });
 
