@@ -15,6 +15,7 @@ html(ng-app='sensor-view')
     script(src="/js/sensor.js")
   body(ng-controller="SensorController")
     .container
+      p {{nnn}}
       is-device(state="state", saved-state="savedState")
         table.table.table-condensed.table-striped
           tr(ng-repeat="(key, value) in state.status")

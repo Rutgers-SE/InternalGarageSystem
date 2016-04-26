@@ -33,7 +33,7 @@ let {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
 let {Garage} = require('./lib/Garage');
 
 
-let spaceCount = 20;
+let spaceCount = 5;
 // lets define the garage
 let spaceManOne = new SpaceManager(spaceCount);
 let PhysicalGarage  = new Garage(spaceCount);
@@ -80,25 +80,18 @@ doc.defineSequence('entrance')
   ])
   .addRelay([
     new Relay({'name': 'entrance-gate', 'status': {'arm': 'closed'}},
-              {'trip': 'parking'})
-  ]);
-
-doc.defineSequence('parking')
+              {'deviceType': 'panel', 'status': {'command': 'turn-on-sensors!', 'args': {
+                'sensor-count': PhysicalGarage.availbleSpaces()
+              }}})
+  ])
   .addRelay([
-    new Relay({'name': 'panel', 'status': {'sensors': 'on'}},
-              {})
+    new Relay({'deviceType': 'sensor', 'status': {'signal': 'HI'}},
+              {'deviceType': 'panel', 'status': {'command': 'turn-all-other-sensors!'}})
   ])
   .addRelay([
     new Relay({'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
               {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
   ])
-  .addRelay([
-    new Relay({'name': 'parking-lot-sensor', 'status': {'signal': 'HI'}},
-              {'name': 'parking-space-sensor', 'status': {'command': 'await!'}})
-  ]);
-
-
-doc.defineSequence('exit')
   .addRelay([
     new Relay({'name': 'pre-exit-sensor', 'status': {'signal':'HI'}},
               {'name': 'exit-terminal', 'actions': {'command': 'display!'}})

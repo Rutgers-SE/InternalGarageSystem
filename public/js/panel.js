@@ -7,10 +7,10 @@ app.run(function (editableOptions) {
 });
 
 function openDevFn(dev) {
-  return function () {
+  return function (name) {
 
     var win = window;
-    window.open('/devices/' + dev, '_blank');
+    window.open('/devices/' + dev + "#/" + name, '_blank');
     win.focus();
 
   }
@@ -114,7 +114,8 @@ app.controller('PanelController', function ($scope, socket, $sce) {
   });
 
   socket.on('dev:command', (payload) => {
-    if (payload['name'] !== 'panel') return;
+    if (payload['deviceType'] !== 'panel') return;
+    alert("I'm here")
 
     // status contains the command that should be executed
     let status = payload['status'];

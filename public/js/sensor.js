@@ -1,14 +1,18 @@
 var app = angular.module('sensor-view', ['isDirectives', 'ngRoute']);
 
-app.config(function($routeProvider){
-  $routeProvider.when(
-    "/:name",
-    {
-      controller: "SensorController",
-      controllerAs: "sensor"
-    }
-  );
-})
+app.config([
+  "$routeProvider",
+  function($routeProvider){
+    $routeProvider
+      .when(
+        "/:name",
+        {
+          controller: "SensorController",
+          controllerAs: "sensor"
+        }
+      )
+  }
+]);
 
 
 function action(w) {
@@ -32,6 +36,11 @@ function opposite (s) {
 }
 
 app.controller('SensorController', function ($scope, DeviceState, $routeParams) {
+
+
+  window.rp = $routeParams;
+
+  $scope.nnn = $routeParams.name;
 
   $scope.state = DeviceState.default('sensor', {
     signal: 'LOW'

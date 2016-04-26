@@ -25,6 +25,8 @@ html(ng-app="device-panel")
               img.img-responsive(id="galaxyLogo", src="/images/galaxyIcon6.png")
             div
               h2(style = "text-align: center;") {{sequence}} Sequence Progress
+  
+        button(ng-click="newSensor('testing')") Create
         .container
           .col-md-8
             h3(style = "text-align: left;") Sequences:
