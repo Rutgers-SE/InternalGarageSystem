@@ -3,10 +3,11 @@ module.exports = function ({spaceManOne}) {
   var r = require("express").Router();
   // we need to use passport for OAuth2
 
+
   var parseStartFinish = (req) => {
     return {
-      start: new Date(req.params.start),
-      finish: new Date(req.params.finish)
+      start: new Date(req.query.start),
+      finish: new Date(req.query.finish)
     }
   }
 
