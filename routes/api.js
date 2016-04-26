@@ -27,15 +27,14 @@ module.exports = function (obj) {
 
   //Check to see if reservation is available
   r.get('/:garage_id/b/checkreservation', function(req, res) {
-    var r = parseStartFinish(req);
     var {start, finish} = parseStartFinish(req);
-    res.json(spaceManOne.checkReservation(r.start, r.finish));
+    res.json(spaceManOne.checkReservation(start, finish));
   });
 
   //Attempt to make reservation
   r.get('/:garage_id/b/setreservation', function(req, res) {
-    var r = parseStartFinish(req);
-    res.json(spaceManOne.setReservation(r.date1, r.date2));
+    var {start, finish} = parseStartFinish(req);
+    res.json(spaceManOne.setReservation(date1, date2));
   });
 
   //Get reserved spaces at specified timeslot
