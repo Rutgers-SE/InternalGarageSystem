@@ -1,1 +1,1 @@
-web: node --harmony_destructuring index
+web: node --harmony --harmony_destructuring index
