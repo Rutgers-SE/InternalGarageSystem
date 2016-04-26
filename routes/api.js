@@ -4,11 +4,6 @@ var r = require("express").Router();
 
 // we need to use passport for OAuth2
 
-r.get('/:garage_id/b/full', function (req, res) {
-  // look at the current instance of
-  res.json(false); // this should change.
-});
-
 //statistics
 r.get('/:garage_id/o/statistics', function (req, res) {
   var garageId = req.params.garage_id;
@@ -24,6 +19,10 @@ var parseStartFinish = (req) => {
     start: new Date(req.params.finish)
   };
 };
+
+r.get('/:garage_id/b/full', function (req, res) {
+  res.json(spaceManOne.isFull());
+});
 
 //Check to see if reservation is available
 r.get('/:garage_id/b/checkreservation', function(req, res) {
