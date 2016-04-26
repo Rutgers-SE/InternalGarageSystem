@@ -1,57 +1,57 @@
 "use strict";
+module.exports = function (obj) {
+  var r = require("express").Router();
+  // we need to use passport for OAuth2
 
-var r = require("express").Router();
+  var spaceManOne = obj.spaceManOne;
 
-// we need to use passport for OAuth2
-
-r.get('/:garage_id/b/full', function (req, res) {
-  // look at the current instance of
-  res.json(false); // this should change.
-});
-
-//statistics
-r.get('/:garage_id/o/statistics', function (req, res) {
-  var garageId = req.params.garage_id;
-  res.json({
-    "thisshouldhavesomeinformation": "righthere",
-    "garage_id": garageId
+  r.get('/:garage_id/b/full', function (req, res) {
+    // look at the current instance of
+    res.json(false); // this should change.
   });
-});
 
-var parseStartFinish = (req) => {
-  return {
-    start: new Date(req.params.start),
-    start: new Date(req.params.finish)
-  };
-};
+  r.get('/:garage_id/o/statistics', function (req, res) {
+    var garageId = req.params.garage_id;
+    res.json({
+      "garage_id": garageId
+    })
+  })
 
-//Check to see if reservation is available
-r.get('/:garage_id/b/checkreservation', function(req, res) {
-  var r = parseStartFinish(req);
-  var {start, finish} = parseStartFinish(req);
-  res.json(spaceManOne.checkReservation(r.start, r.finish));
-});
+  var parseStartFinish = (req) => {
+    return {
+      start: new Date(req.params.start),
+      finish: new Date(req.params.finish)
+    }
+  }
 
-//Attempt to make reservation
-r.get('/:garage_id/b/setreservation', function(req, res) {
-  var r = parseStartFinish(req);
-  res.json(spaceManOne.setReservation(r.date1, r.date2));
-});
+  //Check to see if reservation is available
+  r.get('/:garage_id/b/checkreservation', function(req, res) {
+    var r = parseStartFinish(req);
+    var {start, finish} = parseStartFinish(req);
+    res.json(spaceManOne.checkReservation(r.start, r.finish));
+  });
 
-//Get reserved spaces at specified timeslot
-r.get('/:garage_id/n/getreservedspaces', function(req, res){
-  res.json(spaceManOne.getReservedSpaces(new Date(req.params.date)));
-});
+  //Attempt to make reservation
+  r.get('/:garage_id/b/setreservation', function(req, res) {
+    var r = parseStartFinish(req);
+    res.json(spaceManOne.setReservation(r.date1, r.date2));
+  });
 
-//Get unreserved spaces at specified timeslot
-r.get('/:garage_id/n/getunreservedspaces/:y/:m/:d/:h', function(req, res){
-  res.json(spaceManOne.getUnreservedSpaces(new Date(req.params.date)));
-});
+  //Get reserved spaces at specified timeslot
+  r.get('/:garage_id/n/getreservedspaces', function(req, res){
+    res.json(spaceManOne.getReservedSpaces(new Date(req.params.date)));
+  });
 
-//Get the currentTimeSlots array
-r.get('/:garage_id/o/getreservedtimes', function(req, res) {
-  // TODO: implement
-  res.json(spaceManOne.getReservedTimes());
-});
+  //Get unreserved spaces at specified timeslot
+  r.get('/:garage_id/n/getunreservedspaces/:y/:m/:d/:h', function(req, res){
+    res.json(spaceManOne.getUnreservedSpaces(new Date(req.params.date)));
+  });
 
-module.exports = r;
+  //Get the currentTimeSlots array
+  r.get('/:garage_id/o/getreservedtimes', function(req, res) {
+    // TODO: implement
+    res.json(spaceManOne.getReservedTimes());
+  });
+
+  return r;
+}
