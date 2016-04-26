@@ -34,7 +34,7 @@ module.exports = function (obj) {
   //Attempt to make reservation
   r.get('/:garage_id/b/setreservation', function(req, res) {
     var {start, finish} = parseStartFinish(req);
-    res.json(spaceManOne.setReservation(date1, date2));
+    res.json(spaceManOne.setReservation(start, finish));
   });
 
   //Get reserved spaces at specified timeslot
