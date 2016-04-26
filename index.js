@@ -33,7 +33,7 @@ let {DeviceOrchestrator, Relay} = require('./lib/DeviceOrchestrator');
 let {Garage} = require('./lib/Garage');
 
 
-let spaceCount = 5;
+let spaceCount = 20;
 // lets define the garage
 let spaceManOne = new SpaceManager(spaceCount);
 let PhysicalGarage  = new Garage(spaceCount);
