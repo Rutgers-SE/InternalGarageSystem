@@ -3,6 +3,13 @@ module.exports = function (obj) {
   var r = require("express").Router();
   // we need to use passport for OAuth2
 
+  var parseStartFinish = (req) => {
+    return {
+      start: new Date(req.params.start),
+      finish: new Date(req.params.finish)
+    }
+  }
+
   var spaceManOne = obj.spaceManOne;
 
   r.get('/:garage_id/b/full', function (req, res) {
@@ -17,12 +24,6 @@ module.exports = function (obj) {
     })
   })
 
-  var parseStartFinish = (req) => {
-    return {
-      start: new Date(req.params.start),
-      finish: new Date(req.params.finish)
-    }
-  }
 
   //Check to see if reservation is available
   r.get('/:garage_id/b/checkreservation', function(req, res) {
