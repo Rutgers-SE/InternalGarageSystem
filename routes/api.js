@@ -17,7 +17,7 @@ module.exports = function ({spaceManOne}) {
   });
 
   r.get('/:garage_id/o/statistics', function (req, res) {
-    var garageId = req.params.garage_id;
+    var garageId = req.query.garage_id;
     res.json({
       "garage_id": garageId
     })
@@ -38,12 +38,12 @@ module.exports = function ({spaceManOne}) {
 
   //Get reserved spaces at specified timeslot
   r.get('/:garage_id/n/getreservedspaces', function(req, res){
-    res.json(spaceManOne.getReservedSpaces(new Date(req.params.date)));
+    res.json(spaceManOne.getReservedSpaces(new Date(req.query.date)));
   });
 
   //Get unreserved spaces at specified timeslot
   r.get('/:garage_id/n/getunreservedspaces', function(req, res){
-    res.json(spaceManOne.getUnreservedSpaces(new Date(req.params.date)));
+    res.json(spaceManOne.getUnreservedSpaces(new Date(req.query.date)));
   });
 
   //Get the currentTimeSlots array
