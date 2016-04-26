@@ -2,23 +2,28 @@
 
 var r = require("express").Router();
 
+
+// you need to fix this function
+// start=2013+23+23+
+var parseStartFinish = (req) => {
+
+  return {
+    start: new Date(req.params.start),
+    finish: new Date(req.params.finish)
+  };
+};
+
 // we need to use passport for OAuth2
 
 //statistics
+// website.com/api/foiwej/o/statistics?start=4023894230&finish=234235453
 r.get('/:garage_id/o/statistics', function (req, res) {
   var garageId = req.params.garage_id;
   res.json({
-    "thisshouldhavesomeinformation": "righthere",
-    "garage_id": garageId
+    "Satisfied Customers": "0",
+    "garage_id": "3.14159"
   });
 });
-
-var parseStartFinish = (req) => {
-  return {
-    start: new Date(req.params.start),
-    start: new Date(req.params.finish)
-  };
-};
 
 r.get('/:garage_id/b/full', function (req, res) {
   res.json(spaceManOne.isFull());
@@ -26,15 +31,14 @@ r.get('/:garage_id/b/full', function (req, res) {
 
 //Check to see if reservation is available
 r.get('/:garage_id/b/checkreservation', function(req, res) {
-  var r = parseStartFinish(req);
   var {start, finish} = parseStartFinish(req);
-  res.json(spaceManOne.checkReservation(r.start, r.finish));
+  res.json(spaceManOne.checkReservation(start, finish));
 });
 
 //Attempt to make reservation
 r.get('/:garage_id/b/setreservation', function(req, res) {
-  var r = parseStartFinish(req);
-  res.json(spaceManOne.setReservation(r.date1, r.date2));
+  var {start, finish} = parseStartFinish(req);
+  res.json(spaceManOne.setReservation(start, finish));
 });
 
 //Get reserved spaces at specified timeslot
