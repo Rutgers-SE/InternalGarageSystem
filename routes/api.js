@@ -4,7 +4,6 @@ module.exports = function ({spaceManOne}) {
   // we need to use passport for OAuth2
 
   var parseStartFinish = (req) => {
-    if 
     return {
       start: new Date(req.params.start),
       finish: new Date(req.params.finish)
