@@ -40,7 +40,7 @@ let PhysicalGarage  = new Garage(spaceCount);
 let VirtualGarage = new Garage(spaceCount);
 
 require('./routes/middleware')(app);
-require('./routes')(app, spaceManOne);
+require('./routes')(app, {spaceManOne});
 
 // I want this porition to be in a separate file
 let doc = new DeviceOrchestrator({io});

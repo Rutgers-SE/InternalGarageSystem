@@ -1,16 +1,15 @@
 "use strict";
-module.exports = function (obj) {
+module.exports = function ({spaceManOne}) {
   var r = require("express").Router();
   // we need to use passport for OAuth2
 
   var parseStartFinish = (req) => {
+    if 
     return {
       start: new Date(req.params.start),
       finish: new Date(req.params.finish)
     }
   }
-
-  var spaceManOne = obj.spaceManOne;
 
   r.get('/:garage_id/b/full', function (req, res) {
     // look at the current instance of
