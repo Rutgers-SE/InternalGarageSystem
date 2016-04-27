@@ -80,8 +80,6 @@ app.controller('PanelController', function ($scope, socket, $sce) {
         $scope[key] = value;
       }
     })
-
-    console.log(out);
   });
 
 
@@ -99,7 +97,6 @@ app.controller('PanelController', function ($scope, socket, $sce) {
 
 
   $scope.getProgress = function (so) {
-    console.log("awesome");
     return ((so.head) / so.chain.length) * 100;
   };
 
@@ -113,19 +110,30 @@ app.controller('PanelController', function ($scope, socket, $sce) {
     $scope.events.push(eventObject);
   });
 
+
+  $scope.fns = {
+    'turn-on-sensors!': (sensorCount) => {
+      _.times(sensorCount, () => {
+        $scope.newSensor();
+      })
+    },
+    'turn-all-other-sensors-off!': (devNames) => {
+      _.each(devNames, (name) => {
+        socket.emit("dev:close", {
+          name: name,
+          deviceType: "sensor"
+        })
+      })
+    }
+  }
+
+
   socket.on('dev:command', (payload) => {
     if (payload['deviceType'] !== 'panel') return;
-    alert("I'm here")
 
     // status contains the command that should be executed
     let status = payload['status'];
-    _.times(status['args']['sensor-count'], () => {
-      // This should spawn the amount of available spaces in the system
-      $scope.newSensor();
-    })
-
-
-
+    $scope.fns[status['command']].apply(null, status['args']);
   });
 
   //socket.on('panel:event-log', function (pl) {
