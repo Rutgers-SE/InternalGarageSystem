@@ -8,19 +8,19 @@ html
         script(src="/vendor/lodash/dist/lodash.min.js")
         link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
         script(src='/vendor/angular/angular.js')
-        link(href="/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet")
-        script(src="/vendor/angular-xeditable/dist/js/xeditable.js")
         link(rel="stylesheet", href="/css/style.css")
-        link(rel="stylesheet", href="/public/css/style.css")
         link(rel="stylesheet", href="/css/style.css")
+        link(rel="stylesheet", href="/css/style.css")
+        script(src="https://www.gstatic.com/charts/loader.js")
+        script(src="/js/chart.js")
     
     body
+        #visualization(style="width: 2000px; height: 500px")
         .container
             .row
                 h1 Main Menu
                 a.btn.btn-warning(href="/devices/panel") Panel
                 a.btn.btn-warning(href="/devices/panel" style='margin-left: 10px;') About the Authors
                 a.btn.btn-danger(href="/devices/panel" style='margin-left: 10px;', ng-model) Galaxy Garage
-                
-
-
+            #curve_chart(style="width: 900px; height: 500px")
+            button#b1 Refresh

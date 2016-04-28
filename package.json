@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Rutgers-SE/InternalGarageSystem#readme",
   "dependencies": {
+    "async": "^2.0.0-rc.3",
     "body-parser": "^1.15.0",
     "bower": "^1.7.9",
     "collections": "^3.0.0",
