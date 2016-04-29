@@ -15,12 +15,12 @@ html
         script(src="/js/chart.js")
     
     body
-        #visualization(style="width: 2000px; height: 500px")
         .container
             .row
                 h1 Main Menu
                 a.btn.btn-warning(href="/devices/panel") Panel
                 a.btn.btn-warning(href="/devices/panel" style='margin-left: 10px;') About the Authors
                 a.btn.btn-danger(href="/devices/panel" style='margin-left: 10px;', ng-model) Galaxy Garage
-            #curve_chart(style="width: 900px; height: 500px")
-            button#b1 Refresh
+
+        #visualization(style="width: 2000px; height: 500px")
+        button#b1 Update
